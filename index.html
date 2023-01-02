@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>App Blog</title>
+    <meta name="description" content="administration toto dessin" />
+
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="./app/css/bootstrap.css" />
+    <link rel="stylesheet" href="./app/css/style.css" />
+
+    <!-- js app -->
+    <script src="./main.js" type="module" defer></script>
+    <script src="./app/app.js" type="module" defer></script>
+
+    <!-- js function -->
+    <script src="./app/js/tools_function.js"></script>
+    <script src="./app/js/tools_models.js"></script>
+    <script src="./app/js/tools_components.js"></script>
+    <!-- <script src="./app/js/switchModalAction.js"></script>  -->
+    
+    <!-- lib -->
+    <!-- gridjs -->
+    <script src="./lib/gridjs/gridjs.js"></script>
+    <link rel="stylesheet" href="./lib/gridjs/gridjs.css">
+
+</head>
+
+<body>
+    <div class="dock-page" data-dock="dock-page">
+        <!-- dock nav -->
+        <div class="dock-nav bg-dark">Administration - Toto dessin</div>
+        <!-- dock sidebar -->
+        <div class="dock-sidebar" data-dock-sidebar-id="dock-sidebar"></div>
+        <!-- dock main -->
+        <div class="dock-main" data-dock-main-id="dock-main">
+            <div id="form-send-draw" data-form-wrap-name="form-add-drawing" dock-main-template="form-add-drawing"></div>
+        </div>
+        <!-- <div id="dock-modal" class="dock-modal" data-dock-modal-id="dock-modal"></div> -->
+    </div>
+
+
+</body>
+
+</html>

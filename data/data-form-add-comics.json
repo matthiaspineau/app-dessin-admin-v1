@@ -1,0 +1,40 @@
+{
+    "reference": {
+      "label": {
+        "content": "reference de la bd :"
+      },
+      "field": {
+        "type": "text",
+        "name": "comics-reference",
+        "data_field_name": "comics-reference",
+        "data_field_type": "text"
+      }
+    },
+    "title": {
+      "label": {
+        "content": "titre de la bd:"
+      },
+      "field": {
+        "type": "text",
+        "name": "comics-title",
+        "data_field_name": "comics-title",
+        "data_field_type": "text"
+      }
+    },
+    "desc": {
+      "label": {
+        "content": "description de la bd :"
+      },
+      "field": {
+        "type": "text",
+        "name": "comics-desc",
+        "data_field_name": "comics-desc",
+        "data_field_type": "text"
+      }
+    },
+    "button": {
+      "text": "Envoyer",
+      "id": "send-draw"
+    }
+  }
+  

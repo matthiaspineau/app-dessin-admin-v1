@@ -1,0 +1,174 @@
+body {
+    font-size: 16px;
+}
+
+/* nav */
+.nav-app {
+    display: flex;   
+}
+.nav-app a {
+    padding: 10px;
+    color: blue; 
+}
+
+/* dock grid template page */
+.dock-page {
+    position: relative;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+
+    height: 100vh;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+.dock-nav {
+    color: #fff;
+    height: 45px;
+    padding: 10px 5px;
+    grid-column: 1 / 3;
+    grid-row: 1;
+    /* background: blue; */
+} 
+.dock-sidebar {
+    height: calc(100vh - 50px);
+    padding: 12px;
+
+    grid-column: 1;
+    grid-row: 2;
+
+    overflow-y: auto;
+} 
+.dock-main {
+    position: relative;
+    height: calc(100vh - 50px);
+    padding: 12px;
+
+    grid-column: 2;
+    grid-row: 2;
+
+    overflow-y: auto;
+}
+.dock-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+}
+
+/* sidebar-ul */
+
+.sidebar-ul {
+    list-style-type: none;
+    /* padding: 0px; */
+    padding: 12px;
+
+}
+
+.sidebar-li {
+    font-size: 0.9em;
+    cursor: pointer;
+    display: inline-block;
+    padding: 5px;
+}
+.sidebar-li:hover {
+    color: blue;
+}
+/*  */
+
+/* -----------------------------------------
+            modal
+-------------------------------------------- */
+.modal-container {
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    width: 600px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 50px auto 50px;
+    background: #fff;
+    border-radius: 4px;
+    min-height: 400px;
+}
+.modal-top {
+    grid-column: 1 / 3;
+    grid-row: 1;
+    position: relative;
+    padding: 5px;
+
+    background: blue;
+}
+.modal-middle {
+    grid-column: 1 / 3;
+    grid-row: 2;
+    padding: 5px;
+
+    background: green;
+}
+.modal-footer {
+    grid-column: 1 / 3;
+    grid-row: 3;
+    padding: 5px;
+
+    background: yellow;
+}
+.modal-close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+/* -----------------------------------------
+            modal - fin
+-------------------------------------------- */
+/* -----------------------------------------
+            modal
+-------------------------------------------- */
+.dock-notification {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    max-width: 600px;
+    min-width: 500px;
+    padding: 15px;
+    color: #fff;
+    background: rgba(0,0,0,0.8);
+    border-radius: 5px;
+}
+.notification-container {
+    /* position: absolute;
+    top: 50px;
+    left: 50px;
+    max-width: 600px;
+    min-width: 500px;
+    padding: 15px;
+    color: #fff;
+    background: rgba(0,0,0,0.8);
+    border-radius: 5px; */
+}
+.notification-content {
+    /* width: 600px; */
+}
+
+.notification-close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+/* -----------------------------------------
+            notification - fin
+-------------------------------------------- */

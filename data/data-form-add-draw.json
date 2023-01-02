@@ -1,0 +1,79 @@
+{
+  "name": {
+    "label": {
+      "content": "Nom du fichier :"
+    },
+    "field": {
+      "type": "text",
+      "name": "draw-file-name",
+      "data_field_name": "draw-file-name",
+      "data_field_type": "text"
+    }
+  },
+  "title": {
+    "label": {
+      "content": "titre du dessin :"
+    },
+    "field": {
+      "type": "text",
+      "name": "draw-file-title",
+      "data_field_name": "draw-file-title",
+      "data_field_type": "text"
+    }
+  },
+  "desc": {
+    "label": {
+      "content": "description du dessin :"
+    },
+    "field": {
+      "type": "text",
+      "name": "draw-file-desc",
+      "data_field_name": "draw-file-desc",
+      "data_field_type": "text"
+    }
+  },
+  "file": {
+    "label": {
+      "content": "importer un fichier :"
+    },
+    "field": {
+      "name": "draw-file",
+      "type": "file",
+      "id": "field-file"
+    },
+    "error": {
+      "cls": "invalid-feedback feedback-file",
+      "content": "Fichier non conforme"
+    }
+  },
+  "tags": {
+    "container_name": "tags",
+    "wrapper": {
+      "legend": "selection tags"
+    },
+    "lists": [
+      {
+        "label": "crayon",
+        "type": "checkbox",
+        "name": "crayon",
+        "value": "crayon"
+      },
+      {
+        "label": "aquarel",
+        "type": "checkbox",
+        "name": "aquarel",
+        "value": "aquarel"
+      },
+      {
+        "label": "brouillon",
+        "type": "checkbox",
+        "name": "brouillon",
+        "value": "brouillon"
+      }
+    ]
+  },
+  "button": {
+    "text": "Envoyer",
+    "id": "send-draw"
+  }
+}
