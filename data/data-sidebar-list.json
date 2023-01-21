@@ -13,8 +13,8 @@
       "action": "get-draws-view"
     },
     {
-      "content": "Ajouder une bd",
-      "action": "get-form-add-comics"
+      "content": "Ajouter une bd",
+      "action": "get-form-comics"
     }
   ]
 }

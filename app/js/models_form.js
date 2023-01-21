@@ -64,7 +64,10 @@ function getFieldTypeFileDraw(config) {
                         ${baseCls.field.cls ? `class="${baseCls.field.cls}"` : ''}
                         ${config.field.value ? `value=${config.field.value}"` : ''}  
                     />
-                    <div  ${config.error.cls ? `class="${config.error.cls}"` : ''}>${config.error.content}</div>
+                    ${config.error != undefined ? 
+                        `<div  ${config.error.cls ? `class="${config.error.cls}"` : ''}>
+                            ${config.error.content}
+                        </div>` : ''}  
             </div>`
 
     return html

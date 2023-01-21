@@ -1,6 +1,7 @@
 import { fetchDataSidebarItems } from './fetch_data.js';
 import { createFormAddDraw } from './init_form_send_draw.js';
 import { createTableDraw } from './init_table_draw.js'
+import { viewFormComics } from './view-form-comics.js'
 
 
 function createSidebar() {
@@ -50,9 +51,10 @@ function switchAction(action) {
             htmlTemplate = `<div id="table-get-draw" data-form-wrap-name="table-get-draw" dock-main-template="table-get-draw"></div>`
             createDockMain()
             break;
-        case "get-draws-view":
+        case "get-form-comics":
             htmlTemplate = `<div id="form-add-comics" data-form-wrap-name="form-add-comics" dock-main-template="form-add-comics"></div>`
-            viewCreateComics()
+            createDockMain(htmlTemplate)
+            viewFormComics()
             break;
         default:
             break;

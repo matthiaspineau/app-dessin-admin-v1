@@ -12,7 +12,7 @@
     },
     "title": {
       "label": {
-        "content": "titre de la bd:"
+        "content": "Titre de la bd:"
       },
       "field": {
         "type": "text",
@@ -23,7 +23,7 @@
     },
     "desc": {
       "label": {
-        "content": "description de la bd :"
+        "content": "Description de la bd :"
       },
       "field": {
         "type": "text",
@@ -32,9 +32,31 @@
         "data_field_type": "text"
       }
     },
+    "idsDraw": {
+      "label": {
+        "content": "Id des dessins :"
+      },
+      "field": {
+        "type": "text",
+        "name": "comics-ids-draw",
+        "data_field_name": "comics-ids-draw",
+        "data_field_type": "text"
+      }
+    },
+    "idDrawIcone": {
+      "label": {
+        "content": "Icone de la bd :"
+      },
+      "field": {
+        "type": "text",
+        "name": "comics-id-draw-icone",
+        "data_field_name": "comics-id-draw-icone",
+        "data_field_type": "text"
+      }
+    },
     "button": {
       "text": "Envoyer",
-      "id": "send-draw"
+      "id": "send-comics"
     }
   }
   

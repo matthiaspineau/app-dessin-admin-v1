@@ -94,9 +94,7 @@ async function fetchDelete(url, item) {
 }
 
 
-async function fetchAddComics(url, item) {
-
-    let params = {"id": item.id, "name": item.name}
+async function fetchAddComics(url, params) {
 
     let data = {
        "controller": "ComicsController",
