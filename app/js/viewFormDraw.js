@@ -1,7 +1,13 @@
 import { getFieldTypeText, getFieldTypeFileDraw, getFieldTypeCheckox, getFieldTypeSubmit } from "./models_form.js";
-import {getValuesFieldText, getValuesFieldCheckbox} from "./tools_form.js";
+import {getValuesFieldText, getValuesFieldCheckbox} from "./utils/tools_form.js";
 import { fetchDataFormAddDraw } from './fetch_data.js';
 import { PATH } from "../configUrl.js";
+
+export function initView() {
+
+    document.getElementById('main').innerHTML = `<div id="form-send-draw"></div>`
+    createFormAddDraw()
+}
 
 function createFormAddDraw() {
     fetchDataFormAddDraw("../../data/data-form-add-draw.json").then((data) => {
@@ -21,6 +27,7 @@ function createFormAddDraw() {
         initFormSendDraw();
     });
 }
+
 
 
 function initFormSendDraw() {
@@ -67,13 +74,12 @@ function initFormSendDraw() {
 
     formBtnAddDrawing.addEventListener("click", (e) => {
         e.preventDefault();
-
+        getModalAfterAddDrawHTML()
         fetchUploadDrawing().then((response) => {
-            // console.log(response);
-            let configNotification = {
-                content: 'L\'enregistrement a été fait avec succes'
-            }
-            componentsNotification(configNotification)
+            
+            document.querySelector('#myModal .modal-body').innerHTML = "L\'enregistrement a été fait avec succes"
+
+            console.log('L\'enregistrement a été fait avec succes');
         });
     });
 
@@ -83,13 +89,13 @@ function initFormSendDraw() {
 
         let textValue = getValuesFieldText({
             format: 'objectOfValue',
-            wrapper: '[data-form-wrap-name="form-add-drawing"]',
+            wrapper: '#form-send-draw',
             field: '[data-field-type="text"]',
         });
 
         let checkValue = getValuesFieldCheckbox({
             format: 'objectOfValue',
-            wrapper: '[data-form-wrap-name="form-add-drawing"]',
+            wrapper: '#form-send-draw',
             field: '[data-field-wrap-type="checkbox"]',
         });
        
@@ -132,4 +138,50 @@ function initFormSendDraw() {
     }
 }
 
-export { createFormAddDraw };
+function getModalAfterAddDrawHTML() {
+console.log(document.querySelector('.dock-page #myModal'))
+
+if (document.querySelector('.dock-page #myModal') != null) {
+    myModal.show('modalToggle')
+    return 
+}
+
+   
+console.log('la')
+// Date.now()
+        let modal = document.createElement('div')
+        modal.innerHTML = `
+        <div class="modal" id="myModal" data-bs-modal="modal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary btn_modal-dispose" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+        `
+    document.querySelector('.dock-page').appendChild(modal)
+    const myModal = new bootstrap.Modal('#myModal', {})
+    console.log(myModal)
+      
+    myModal.show('modalToggle')
+
+
+    document.querySelector('#myModal').addEventListener('hidden.bs.modal', event => {
+        document.querySelector('#myModal').remove()
+    })
+      
+}

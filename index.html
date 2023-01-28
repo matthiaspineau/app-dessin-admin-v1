@@ -17,32 +17,21 @@
     <script src="./app/app.js" type="module" defer></script>
 
     <!-- js function -->
-    <script src="./app/js/tools_function.js"></script>
-    <script src="./app/js/tools_models.js"></script>
-    <script src="./app/js/tools_components.js"></script>
-    <!-- <script src="./app/js/switchModalAction.js"></script>  -->
+    <script src="./app/js/utils/tools_function.js"></script>
     
     <!-- lib -->
     <!-- gridjs -->
     <script src="./lib/gridjs/gridjs.js"></script>
     <link rel="stylesheet" href="./lib/gridjs/gridjs.css">
+    <!-- boostrap -->
+    <script src="./lib/bootstrap/bootstrap.js"></script>
 
 </head>
 
 <body>
-    <div class="dock-page" data-dock="dock-page">
-        <!-- dock nav -->
-        <div class="dock-nav bg-dark">Administration - Toto dessin</div>
-        <!-- dock sidebar -->
-        <div class="dock-sidebar" data-dock-sidebar-id="dock-sidebar"></div>
-        <!-- dock main -->
-        <div class="dock-main" data-dock-main-id="dock-main">
-            <div id="form-send-draw" data-form-wrap-name="form-add-drawing" dock-main-template="form-add-drawing"></div>
-        </div>
-        <!-- <div id="dock-modal" class="dock-modal" data-dock-modal-id="dock-modal"></div> -->
-    </div>
 
-
+    <div id="app"></div>
+    
 </body>
 
 </html>

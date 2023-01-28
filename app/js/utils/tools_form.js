@@ -4,7 +4,7 @@
  * @returns 
  */
 function getValuesFieldText(config) {
-
+    console.log(config)
     let errorsConfig = 0
     errorsConfig = config.wrapper == undefined ? 1 : 0
     errorsConfig = config.field == undefined ? 1 : 0
