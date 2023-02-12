@@ -14,8 +14,10 @@ window.addEventListener("DOMContentLoaded", (e) => {
                   <li class="sidebar-li"><a href="#" data-view="viewFormComics">page comics</a></li>
                   <li class="sidebar-li"><a href="#" data-view="viewDrawCollection">page draw collection</a></li>
                   <li class="sidebar-li"><a href="#" data-view="viewFormDraw">page draw form</a></li>
-                  <li class="sidebar-li"><a href="#" data-view="viewTest">view test</a></li>
-              <ul>
+                  <li class="sidebar-li"><a href="#" data-view="viewMediaGroups">view media groups</a></li>
+                  <li class="sidebar-li"><a href="#" data-view="viewMedias">view medias</a></li>
+                  <li class="sidebar-li"><a href="#" data-view="viewMediaGroups">view autre</a></li>
+              </ul>
           </div>
           <div id="main" class="dock-main">
 

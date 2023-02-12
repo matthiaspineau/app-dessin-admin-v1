@@ -1,46 +1,76 @@
-import  './../../lib/sortable/sortable.min.js';
+import { fetchGetTableDraw, fetchDelete } from './fetch_data.js';
 import { PATH } from "../configUrl.js";
+
 const ressource = {
     pathUpload:  PATH.urlUploadImg,
     sizeSmall:  'original'
 }
+const storeDraw = {
+    drawList: [],
+    drawId: 0,
+    drawItem: {},
+    drawOfComics: []
+}
+const gridjs = new window.gridjs.Grid()
 
 export function initView() {
     console.log('viewTest')
 
 
-    document.getElementById('main').innerHTML = `<div id="sortable-test"></div>`
-    a()
+    document.getElementById('main').innerHTML = `<div id="d-collection"></div>`
+    go()
 }
 
-function a() {
-    console.log('aaaaaaaaaaaaaaaa')
+function go() {
+    console.log(PATH.urlApi)
 
-    document.getElementById('sortable-test').innerHTML = `<div id="simpleList" class="list-group" style="flex-wrap:wrap;">${getMedia()}</div>`
+    const q = {
+        controller: 'DrawingController',
+        action: 'getDrawsCollection',
+    }
+    
+    gridjs.updateConfig({
+        columns: ['id','drawing_title'],
+        // search: {
+        //     server: {
+        //         url: (prev, keyword) => `${prev}?controller=${q.controller}&action=${q.action}&search=${keyword}`
+        //     }
+        // },
+        pagination: {
+          limit: 2,
+          server: {
+            url: (prev, page, limit) => `${prev}?controller=${q.controller}&action=${q.action}&limit=${limit}&offset=${page * limit}`
+          }
+        },
+        server: {
+          url: PATH.urlApi,
+          then: data => data.data.map(item => [
+            item.id, item.drawing_title
+          ]),
+          total: data => data.count
+        } 
+      }).render(document.getElementById("d-collection"));
 
-    var el = document.getElementById('simpleList');
-    var sortable = Sortable.create(el, {
-        direction: 'horizontal'
-    })
-    console.log(sortable)
 }
 
-function getMedia() {
 
-    let mediaList = document.querySelector('.cls-store-data').dataset.storeDrawOfComics
-    mediaList = JSON.parse(mediaList)
-    console.log(mediaList)
 
-    let html = ''
+class dialogModal {
 
-    mediaList.items.forEach(item => {
-        html += `
-            <div class="m-2 p-2 border" class="list-group-item" style="width:100px;">
-                <img src="${ressource.pathUpload+'original/'+item.srcImg}" alt="">
-            </div>
-        `
-    });
+  constructor(options) {
+    super()
 
-    return html
+  }
+
+  template() {
+    let html = `
+      <div class="">
+        <div class="">
+          <div class="">title</div>
+          <div class="">content</div>
+          <div class="">action</div>
+        </div>
+      </div>`
+  }
 
 }

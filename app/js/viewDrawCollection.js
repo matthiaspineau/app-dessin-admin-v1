@@ -84,7 +84,7 @@ function createTableDraw() {
             sort: true,
             search: true,
             pagination: {
-              limit: 3,
+              limit: 10,
             },
             language: {
                 'search': {
@@ -117,7 +117,7 @@ function deleteDraw(item) {
     fetchDelete(PATH.urlApi, params).then((json) => {
  
       storeDraw.drawList = storeDraw.drawList.filter(elt =>  elt.id != item.id )
-        console.log('aaaaaaa')
+        // console.log('aaaaaaa')
       gridjs.updateConfig({
           data: storeDraw.drawList
       }).forceRender();

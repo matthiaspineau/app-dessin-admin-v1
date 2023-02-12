@@ -67,3 +67,29 @@ img {
 /* -----------------------------------------
             notification - fin
 -------------------------------------------- */
+
+
+/* -----------------------------------------
+            media sortbale
+-------------------------------------------- */
+.card-sortable-media__container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+}
+.card-sortable-media__content {
+    max-width: 120px;
+    padding: 5px;
+    border: 1px solid #000;
+}
+.card-sortable-media__img {
+    
+}
+.card-sortable-media__img img {
+    max-width: 100%;
+    height: auto;
+}
+/* -----------------------------------------
+            media sortbale - fin
+-------------------------------------------- */

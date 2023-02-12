@@ -14,12 +14,14 @@ function createFormAddDraw() {
         let html = "";
 
         html += getFieldTypeFileDraw(data.file);
-        html += getFieldTypeText(data.title);  
         
+        html += `<div><h5>Information (optionnel)</h5>`
+        html += getFieldTypeText(data.reference);  
+        html += getFieldTypeText(data.title);  
         html += getFieldTypeText(data.desc);
         html += getFieldTypeCheckox(data.tags);
         html += getFieldTypeSubmit(data.button);
-    
+        html += `</div>`
         document.getElementById("form-send-draw").innerHTML = html;
         
     })
@@ -104,6 +106,7 @@ function initFormSendDraw() {
             let data = {
                 nb_files: files.length,
                 drawing_name: "",
+                drawing_reference: textValue["draw-file-reference"],
                 drawing_title: textValue["draw-file-title"],
                 drawing_desc: textValue["draw-file-desc"],
                 drawing_info: JSON.stringify({}),

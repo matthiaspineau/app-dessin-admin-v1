@@ -10,6 +10,17 @@
       "data_field_type": "text"
     }
   },
+  "reference": {
+    "label": {
+      "content": "reference du dessin :"
+    },
+    "field": {
+      "type": "text",
+      "name": "draw-file-reference",
+      "data_field_name": "draw-file-reference",
+      "data_field_type": "text"
+    }
+  },
   "title": {
     "label": {
       "content": "titre du dessin :"
