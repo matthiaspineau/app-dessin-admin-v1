@@ -93,77 +93,58 @@ function viewMediaGroups() {
                     break;
                 case '#edit-order':
 
-    //             medias_tmp_collection_table: [],
-    // medias_tmp_collection_group: [],
-    // medias_tmp_collection_fusionned: [],
-                    document.querySelector(idTarget).innerHTML = `<div id="edit-order-media">
-                            <div class="row mt-2 mb-2">
-                                <div class="col-3">${getIndicatorList()}</div>
-                                <div class="col-3">${getIndicatorList()}</div>
-                                <div class="col-3">${getIndicatorListFusionned()}</div>
-                            </div>
-                            <ul id="sortable-collection" class="card-sortable-media__container">${sortableListMedias()}</ul>
-                            <div class="mt-3">
-                                <button class="btn btn-primary btn-sm save-order">sauvegarder</button>
-                            </div>
-                            <div>${templateFormAddGroupsMediaAddMediasHTML()}</div>
-                        </div>`       
-                        
-                        const el = document.getElementById('sortable-collection')
-                        const sortable = Sortable.create(el, {
-                            direction: 'horizontal'
-                        });
-
-                        document.querySelectorAll('.card-sortable-media__remove').forEach(item => {
-                            item.addEventListener('click', () => {
-                                let idRemove = item.dataset.idRemove
-                                document.querySelector('.card-item[data-id="'+idRemove+'"]').remove()
-                            })
-                        })
-
-                        document.querySelector('.save-order').addEventListener('click', () => {
-                            console.log(sortable.toArray())
-                            let sortOrder = sortable.toArray()
-                            let medias = []
-                            sortOrder.forEach(order => {
-                                state.medias_tmp_collection_table.filter( media => {
-                                    if (media.id == order) {
-                                        let item = {
-                                            id: media.id,
-                                            src: media.src
-                                        }
-
-                                        medias.push(item)
-                                    }
-                                })
-                            })
-
-                            console.log(medias)
-                            state.medias = medias
-                        })
-
-                        document.querySelector('.formMediaGroupsAddMedias .save-medias-group').addEventListener('click', () => {
-                            addGroupsMediaListMedias()
-                        })
-
-                        // function templateFormAddGroupsMediaAddMediasHTML() {
-    
-                        //     let html = `<div class="formMediaGroupsAddMedias border mt-3 p-2">
-                        //                     <h5 class="h5">Ajouter un group de media</h5>
-                        //                     <div class="row">
-                        //                         <div class="col-4">
-                        //                             <div class="form-label">
-                        //                                 <label>reference du group</label>
-                        //                                 <input type="text" data-field-type="text" data-field-name="group-reference" name="group-reference" class="form-control form-control-sm" />
-                        //                             </div>
-                        //                             <button class="btn btn-primary btn-sm save-medias-group">Enregistrer</button>
-                        //                         </div>
-                        //                     </div>
-                        //                 </div>
-                        //                 `
-                        //     return html
-                        // }
                     
+                document.querySelector(idTarget).innerHTML = `<div id="edit-order-media">
+                    <div id="order-step-stored" class="row mt-2 mb-2">
+                        <div class="col-3">${getIndicatorList()}</div>
+                        <div class="col-3">${getIndicatorList()}</div>
+                        <div class="col-3">${getIndicatorListFusionned()}</div>
+                    </div>
+
+                    <ul id="sortable-collection" class="card-sortable-media__container">${sortableListMedias()}</ul>
+                    <div class="mt-3">
+                        <button class="btn btn-primary btn-sm save-order">sauvegarder</button>
+                    </div>
+                    <div>${templateFormAddGroupsMediaAddMediasHTML()}</div>
+                </div>`       
+
+                const el = document.getElementById('sortable-collection')
+                const sortable = Sortable.create(el, {
+                    direction: 'horizontal'
+                });
+
+                document.querySelectorAll('.card-sortable-media__remove').forEach(item => {
+                    item.addEventListener('click', () => {
+                        let idRemove = item.dataset.idRemove
+                        document.querySelector('.card-item[data-id="'+idRemove+'"]').remove()
+                    })
+                })
+
+                document.querySelector('.save-order').addEventListener('click', () => {
+                    console.log(sortable.toArray())
+                    let sortOrder = sortable.toArray()
+                    let medias = []
+                    sortOrder.forEach(order => {
+                        state.medias_tmp_collection_table.filter( media => {
+                            if (media.id == order) {
+                                let item = {
+                                    id: media.id,
+                                    src: media.src
+                                }
+
+                                medias.push(item)
+                            }
+                        })
+                    })
+
+                    console.log(medias)
+                    state.medias = medias
+                })
+
+                document.querySelector('.formMediaGroupsAddMedias .save-medias-group').addEventListener('click', () => {
+                    addGroupsMediaListMedias()
+                })
+
                     break;
                     case '#edit-order':
                         document.querySelector(idTarget).innerHTML = `<div>
@@ -182,6 +163,45 @@ function viewMediaGroups() {
     
     })
 }
+
+/* ---------------------------------- */    
+/* ---------------------------------- */
+/**
+ * Order media
+ */
+
+function orderEditStepStored() {
+    
+
+    // medias_tmp_collection_table: [],
+    // medias_tmp_collection_group: [],
+    // medias_tmp_collection_fusionned: [],
+
+    const ui = {
+
+    }
+
+    const method = {
+
+    }
+
+    const template = `<div id="order-step-stored" class="row mt-2 mb-2">
+                        <div class="col-3">${getIndicatorList()}</div>
+                        <div class="col-3">${getIndicatorList()}</div>
+                        <div class="col-3">${getIndicatorListFusionned()}</div>
+                    </div>`
+
+
+}
+
+
+
+
+
+
+
+/* ---------------------------------- */
+/* ---------------------------------- */
 
 function templateFormAddGroupsMediaHTML() {
     
@@ -448,3 +468,5 @@ function getIndicatorListFusionned(props) {
     `
     return html
 }
+
+

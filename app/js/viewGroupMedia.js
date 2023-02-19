@@ -1,5 +1,5 @@
 import {getValuesFieldText} from "./utils/tools_form.js";
-import  './../../lib/sortable/sortable.min.js';
+import  '../../lib/sortable/sortable.min.js';
 import { PATH } from "../configUrl.js";
 
 const storeDraw = {
