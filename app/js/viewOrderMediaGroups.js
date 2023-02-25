@@ -149,13 +149,13 @@ function viewOrderMediaGroups() {
 function componentOrder() {
   const ui = {
     useListCollectionTable: document.querySelector(
-      '.use-list-from[data-tmp-list="medias_tmp_collection_table"'
+      '.use-list-from[data-tmp-list="medias_tmp_collection_table"]'
     ),
     useListCollectionGroup: document.querySelector(
-      '.use-list-from[data-tmp-list="medias_tmp_collection_group"'
+      '.use-list-from[data-tmp-list="medias_tmp_collection_group"]'
     ),
     useListCollectionFusionned: document.querySelector(
-      '.use-list-from[data-tmp-list="medias_tmp_collection_fusionned"'
+      '.use-list-from[data-tmp-list="medias_tmp_collection_fusionned"]'
     ),
     sortableCollection: document.querySelector("#sortable-collection"),
     removeItem: document.querySelectorAll(".card-sortable-media__remove"),
@@ -206,7 +206,7 @@ function componentOrder() {
       }
 
       let mediaHtml = ``;
-      console.log(tmp_list);
+
       tmp_list.forEach((media) => {
         mediaHtml += `
 					<li class="card-sortable-media__content card-item" data-id="${media.id}">
@@ -269,37 +269,6 @@ function templateFormAddGroupsMediaAddMediasHTML() {
   return html;
 }
 
-// async function addGroupsMedia() {
-//   let textValue = getValuesFieldText({
-//     format: "objectOfValue",
-//     wrapper: ".formMediaGroups",
-//     field: '[data-field-type="text"]',
-//   });
-
-//   let data = {
-//     reference: textValue["group-reference"],
-//   };
-//   data = JSON.stringify(data);
-
-//   let formData = new FormData();
-//   formData.append("controller", "MediaController");
-//   formData.append("action", "addGroupMedia");
-//   formData.append("params", data);
-
-//   const req = await fetch(PATH.urlApi, {
-//     method: "POST",
-//     headers: {
-//       Accept: "application/json",
-//     },
-//     body: formData,
-//   });
-
-//   if (req.ok === true) {
-//     return req.json();
-//   } else {
-//     throw new Error("nouvelle erreur lors de la creation");
-//   }
-// }
 
 async function getGroupsMedia() {
   let textValue = getValuesFieldText({
@@ -350,7 +319,7 @@ async function addGroupsMediaListMedias() {
   data = JSON.stringify(data);
 
   let formData = new FormData();
-  formData.append("controller", "MediaController");
+  formData.append("controller", "MediaGroupsController");
   formData.append("action", "updateMediasOfGroups");
   formData.append("params", data);
 

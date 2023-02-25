@@ -15,6 +15,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
                   <li class="sidebar-li"><a href="#" data-view="viewDrawCollection">page draw collection</a></li>
                   <li class="sidebar-li"><a href="#" data-view="viewFormDraw">page draw form</a></li>
                   <li class="sidebar-li"><a href="#" data-view="viewOrderMediaGroups">Gestion groupe media</a></li>
+                  <li class="sidebar-li"><a href="#" data-view="viewGroupMediaInformation">information groupe</a></li>
               </ul>
           </div>
           <div id="main" class="dock-main">

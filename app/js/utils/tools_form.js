@@ -117,9 +117,82 @@ function getValuesFieldCheckbox(config) {
     return result
 }
 
-function bonjour() {
-    console.log('bonjour bonjour bonjour')
-}
+/**
+ * 
+ * @param {string} wrapSelectorName 
+ * @param {string} fieldSelectorName 
+ * @returns 
+ */
+// function getValuesFieldRadio(config) {
+
+//     let errorsConfig = 0
+//     errorsConfig = config.wrapper == undefined ? 1 : 0
+//     errorsConfig = config.field == undefined ? 1 : 0
+//     errorsConfig = config.format == undefined ? 1 : 0
+
+//     if (errorsConfig > 0) {
+//         return []
+//     } 
+
+//     let wrap = document.querySelector(config.wrapper)
+//     let wrapRadios = wrap.querySelectorAll(config.field)
+//     let result;
+//     let checkList;
 
 
-export { getValuesFieldText, getValuesFieldCheckbox, bonjour };
+//     if (config.format == 'arrayOfObject') {
+
+//         result = []
+
+//         wrapRadios.forEach(elt => {
+    
+//             let wrapCheckboxName = elt.dataset.fieldWrapName
+//             let checkbox = elt.querySelectorAll('[type="checkbox"]')
+    
+//             checkList = []
+    
+//             checkbox.forEach(item => {
+//                 if (item.checked == true) {
+//                     checkList.push(item.value)
+//                 }
+//             })
+    
+//             let obj = {}
+//             obj[wrapCheckboxName] = checkList
+//             result.push(obj)
+    
+//         })
+//     }
+
+//     if (config.format == 'objectOfValue') {
+
+//         result = {}
+
+//         radios.forEach(elt => {
+    
+//             let wrapCheckboxName = elt.dataset.fieldWrapName
+//             let checkbox = elt.querySelectorAll('[type="checkbox"]')
+    
+//             checkList = []
+   
+//             checkbox.forEach(item => {
+//                 if (item.checked == true) {
+//                     console.log(item)
+//                     checkList.push(item.value)
+//                 }
+//             })
+    
+//             let obj = {}
+//             obj[wrapCheckboxName] = checkList
+//             // result.push(obj)
+
+//             Object.assign(result, obj)
+    
+//         })
+//     }
+
+//     return result
+// }
+
+
+export { getValuesFieldText, getValuesFieldCheckbox };
