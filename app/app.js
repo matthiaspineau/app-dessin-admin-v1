@@ -12,8 +12,8 @@ window.addEventListener("DOMContentLoaded", (e) => {
           <div class="dock-sidebar">
               <div class="sidebar-cat">Media</div>
               <ul class="sidebar-ul">
-                  <li class="sidebar-li"><a href="#" class="r-link" data-view="viewDrawCollection">Media collection</a></li>
-                  <li class="sidebar-li"><a href="#" class="r-link" data-view="viewFormDraw">Ajouter media</a></li>
+                  <li class="sidebar-li"><a href="#" class="r-link" data-view="viewMediaCollection">Media collection</a></li>
+                  <li class="sidebar-li"><a href="#" class="r-link" data-view="viewMedia">Ajouter media</a></li>
               </ul>
               <div class="sidebar-cat">Groupes media</div>
               <ul class="sidebar-ul">
@@ -21,6 +21,11 @@ window.addEventListener("DOMContentLoaded", (e) => {
                 <li class="sidebar-li"><a href="#" class="r-link" data-view="viewGroupMediaCreate">Ajouter groupe</a></li>
                 <li class="sidebar-li"><a href="#" class="r-link" data-view="viewGroupMediaOrder">Editer information</a></li>
                 <li class="sidebar-li"><a href="#" class="r-link" data-view="viewGroupMediaInformation">Editer media</a></li>
+              </ul>
+              <div class="sidebar-cat">Media old draw</div>
+              <ul class="sidebar-ul">
+                  <li class="sidebar-li"><a href="#" class="r-link" data-view="viewDrawCollection">Media collection</a></li>
+                  <li class="sidebar-li"><a href="#" class="r-link" data-view="viewFormDraw">Ajouter media</a></li>
               </ul>
               <div class="sidebar-cat">Test</div>
               <ul class="sidebar-ul"><span></span>
