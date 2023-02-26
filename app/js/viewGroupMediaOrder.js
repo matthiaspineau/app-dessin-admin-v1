@@ -20,12 +20,12 @@ const state = {
 export function initView() {
   document.getElementById(
     "main"
-  ).innerHTML = `<div id="viewOrderMediaGroups"></div>`;
-  viewOrderMediaGroups();
+  ).innerHTML = `<div id="viewGroupMediaOrder"></div>`;
+  viewGroupMediaOrder();
 }
 
-function viewOrderMediaGroups() {
-  document.getElementById("viewOrderMediaGroups").innerHTML = `
+function viewGroupMediaOrder() {
+  document.getElementById("viewGroupMediaOrder").innerHTML = `
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" id="tabsComponent" role="tablist">
         <li class="nav-item" role="presentation">
@@ -78,7 +78,7 @@ function viewOrderMediaGroups() {
 
           break;
         case "#get-group-media":
-					console.log(idTarget)
+		
           document.querySelector(idTarget).innerHTML = `
 								<div class="formMediaGroups border mt-3 p-2">
 									<h5 class="h5">Media d'un groupe</h5>
@@ -179,7 +179,7 @@ function componentOrder() {
         });
       });
 
-      console.log(medias);
+
       state.medias = medias;
     },
     renderList: (flag = "") => {

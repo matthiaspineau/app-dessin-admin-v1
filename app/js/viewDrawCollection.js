@@ -100,13 +100,9 @@ function createTableDraw() {
                 }
             }
           }).render(document.getElementById("table-get-draw-gridjs"));
-
-        // gridjs.on('rowClick', (...args) => console.log('row: ' + JSON.stringify(args), args));
-        // gridjs.on('cellClick', (...args) => console.log('cell: ' + JSON.stringify(args), args));
                 
     })
 
-    // console.log(gridjs)
 }
 
 function deleteDraw(item) {
@@ -117,7 +113,7 @@ function deleteDraw(item) {
     fetchDelete(PATH.urlApi, params).then((json) => {
  
       storeDraw.drawList = storeDraw.drawList.filter(elt =>  elt.id != item.id )
-        // console.log('aaaaaaa')
+
       gridjs.updateConfig({
           data: storeDraw.drawList
       }).forceRender();

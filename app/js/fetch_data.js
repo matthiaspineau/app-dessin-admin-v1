@@ -50,7 +50,7 @@ async function fetchGetDraw(url, params) {
         },
         body: data
     })
-    console.log(req)
+
     if (req.ok === true) {
         return req.json()
     }

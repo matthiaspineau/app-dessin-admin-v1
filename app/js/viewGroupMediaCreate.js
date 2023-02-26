@@ -47,7 +47,7 @@ function viewGroupMediaCreate() {
             formData.append("controller", "MediaGroupsController");
             formData.append("action", "addMediaGroups");
             formData.append("params", data);
-            console.log(formData)
+  
             const req = await fetch(PATH.urlApi ,{
                 method: 'POST',
                 headers: {

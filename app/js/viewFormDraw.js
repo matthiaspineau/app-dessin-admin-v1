@@ -51,11 +51,11 @@ function initFormSendDraw() {
 
             let i = 0
             for (const file of files) {
-                console.log(i)
+           
                 let imgName = file.name;
                 let imgSize = file.size;
                 let imgType = file.type;
-                console.log(imgName)
+           
                  // 600000
                 if (imgSize >= 10000000) {
                     errors.push("Le fichier est trop volumineux");
@@ -142,7 +142,7 @@ function initFormSendDraw() {
 }
 
 function getModalAfterAddDrawHTML() {
-console.log(document.querySelector('.dock-page #myModal'))
+
 
 if (document.querySelector('.dock-page #myModal') != null) {
     myModal.show('modalToggle')
@@ -150,7 +150,7 @@ if (document.querySelector('.dock-page #myModal') != null) {
 }
 
    
-console.log('la')
+
 // Date.now()
         let modal = document.createElement('div')
         modal.innerHTML = `
@@ -178,7 +178,7 @@ console.log('la')
         `
     document.querySelector('.dock-page').appendChild(modal)
     const myModal = new bootstrap.Modal('#myModal', {})
-    console.log(myModal)
+
       
     myModal.show('modalToggle')
 

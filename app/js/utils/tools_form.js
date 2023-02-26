@@ -4,7 +4,7 @@
  * @returns 
  */
 function getValuesFieldText(config) {
-    console.log(config)
+
     let errorsConfig = 0
     errorsConfig = config.wrapper == undefined ? 1 : 0
     errorsConfig = config.field == undefined ? 1 : 0
@@ -100,7 +100,6 @@ function getValuesFieldCheckbox(config) {
    
             checkbox.forEach(item => {
                 if (item.checked == true) {
-                    console.log(item)
                     checkList.push(item.value)
                 }
             })
