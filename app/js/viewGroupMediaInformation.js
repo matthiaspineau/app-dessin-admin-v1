@@ -69,7 +69,7 @@ function viewGroupMediaInformation() {
             data = JSON.stringify(data);
         
             let formData = new FormData();
-            formData.append("controller", "MediaController");
+            formData.append("controller", "MediaGroupsController");
             formData.append("action", "getGroupMedia");
             formData.append("params", data);
         
@@ -90,11 +90,11 @@ function viewGroupMediaInformation() {
         },
         saveInformation: async () => {
    
-            let textValue = getValuesFieldText({
-                format: "objectOfValue",
-                wrapper: ".formInformation",
-                field: '[data-field-type="text"]',
-                });
+            // let textValue = getValuesFieldText({
+            //     format: "objectOfValue",
+            //     wrapper: ".formInformation",
+            //     field: '[data-field-type="text"]',
+            //     });
 
                 let isActive
                 if (ui.fieldActive.checked) {
@@ -116,7 +116,7 @@ function viewGroupMediaInformation() {
             
                 let formData = new FormData();
                 formData.append("controller", "MediaGroupsController");
-                formData.append("action", "updateMediasOfGroups");
+                formData.append("action", "updateMediasGroups");
                 formData.append("params", data);
             
                 const req = await fetch(PATH.urlApi, {

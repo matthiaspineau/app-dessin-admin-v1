@@ -71,9 +71,7 @@ function viewOrderMediaGroups() {
                         <div id="table-media-collection-gridjs"></div>
                     </div>`;
           createTableMediaCollection();
-          document.querySelector(".act-2").addEventListener("click", () => {
-            updateGroupsMedia();
-          });
+ 
 					document.querySelector(".refreshList").addEventListener("click", () => {
             state.medias_tmp_collection_table = []
           });
@@ -283,7 +281,7 @@ async function getGroupsMedia() {
   data = JSON.stringify(data);
 
   let formData = new FormData();
-  formData.append("controller", "MediaController");
+  formData.append("controller", "MediaGroupsController");
   formData.append("action", "getGroupMedia");
   formData.append("params", data);
 
@@ -302,41 +300,7 @@ async function getGroupsMedia() {
   }
 }
 
-/**
- * save list media in bdd
- */
-async function addGroupsMediaListMedias() {
-  let textValue = getValuesFieldText({
-    format: "objectOfValue",
-    wrapper: ".formMediaGroupsAddMedias",
-    field: '[data-field-type="text"]',
-  });
-  console.log(textValue);
-  let data = {
-    id: textValue["group-id"],
-    medias: JSON.stringify({ medias: state.medias }),
-  };
-  data = JSON.stringify(data);
 
-  let formData = new FormData();
-  formData.append("controller", "MediaGroupsController");
-  formData.append("action", "updateMediasOfGroups");
-  formData.append("params", data);
-
-  const req = await fetch(PATH.urlApi, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-    },
-    body: formData,
-  });
-
-  if (req.ok === true) {
-    return req.json();
-  } else {
-    throw new Error("nouvelle erreur lors de la creation");
-  }
-}
 /**
  * collection medias table
  */
@@ -411,22 +375,26 @@ function createTableMediaCollection() {
 
 }
 
-async function updateGroupsMedia() {
+
+/**
+ * save list media in bdd
+ */
+async function addGroupsMediaListMedias() {
   let textValue = getValuesFieldText({
     format: "objectOfValue",
-    wrapper: ".addMediaInGroups",
+    wrapper: ".formMediaGroupsAddMedias",
     field: '[data-field-type="text"]',
   });
 
   let data = {
     id: textValue["group-id"],
-    mediaList: JSON.stringify(state.medias),
+    medias: JSON.stringify({ medias: state.medias }),
   };
   data = JSON.stringify(data);
 
   let formData = new FormData();
-  formData.append("controller", "MediaController");
-  formData.append("action", "updateGroupMedia");
+  formData.append("controller", "MediaGroupsController");
+  formData.append("action", "updateMediasGroups");
   formData.append("params", data);
 
   const req = await fetch(PATH.urlApi, {
@@ -443,4 +411,3 @@ async function updateGroupsMedia() {
     throw new Error("nouvelle erreur lors de la creation");
   }
 }
-

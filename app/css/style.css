@@ -47,10 +47,13 @@ img {
 }
 
 
-/* sidebar-ul */
+/* sidebar */
+.sidebar-cat {
+    font-weight: 600;
+}
 .sidebar-ul {
     list-style-type: none;
-    padding: 12px;
+    padding-left: 12px;
 }
 
 .sidebar-li {
