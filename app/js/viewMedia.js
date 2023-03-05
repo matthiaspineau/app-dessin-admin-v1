@@ -11,6 +11,7 @@ function initView() {
     document.getElementById('main').innerHTML = `<div id="viewMedia">
             <div class="view-title">${template.title}</div>
             <div class="view-content">${template.formCreateMedia}</div>
+            <div class="loader-ui"></div>
         </div>`
 
     viewMedia()
@@ -24,6 +25,7 @@ function viewMedia() {
         mediaReference: document.querySelector('.formCreateMedia [name="reference"]'),
         feedbackFile: document.querySelector('.formCreateMedia .feedback-file'),
         formCreateMedia: document.querySelector('.formCreateMedia'),
+        loader: document.querySelector('.loader-ui'),
     };
 
     const method = {
@@ -59,8 +61,10 @@ function viewMedia() {
             }
         },
         createMedia: () => {
+            ui.loader.style.display = 'block'
             method.uploadMedia().then((json) => {
                 console.log('then create')
+                ui.loader.style.display = 'none'
             })
         },
         uploadMedia: async () => {

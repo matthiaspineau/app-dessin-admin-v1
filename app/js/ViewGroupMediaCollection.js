@@ -29,7 +29,7 @@ function createTable() {
 
     const q = {
         controller: 'MediaGroupsController',
-        action: 'getGroupMedia',
+        action: 'getGroupMediaCollection',
         
     }
 
