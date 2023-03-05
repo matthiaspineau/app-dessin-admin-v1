@@ -12,8 +12,8 @@ async function fetchDataFormAddDraw(url) {
 async function fetchGetTableDraw(url, params) {
 
     let data = {
-       "controller": "DrawingController",
-       "action": "getDraw",
+       "controller": "MediaController",
+       "action": "getMediaCollection",
        "params":  JSON.stringify(params),
     }
     data = JSON.stringify(data)

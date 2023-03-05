@@ -70,7 +70,7 @@ function viewGroupMediaInformation() {
         
             let formData = new FormData();
             formData.append("controller", "MediaGroupsController");
-            formData.append("action", "getGroupMedia");
+            formData.append("action", "getGroupMediaCollection");
             formData.append("params", data);
         
             const req = await fetch(PATH.urlApi, {

@@ -44,7 +44,7 @@ function viewMedia() {
                 let imgType = file.type;
         
                 // 600000
-                if (imgSize >= 1000000) {
+                if (imgSize >= 10000000) {
                     errors.push("Le fichier est trop volumineux");
                 }
                 if (imgType != "image/png") {

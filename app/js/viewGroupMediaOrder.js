@@ -282,7 +282,7 @@ async function getGroupsMedia() {
 
   let formData = new FormData();
   formData.append("controller", "MediaGroupsController");
-  formData.append("action", "getGroupMedia");
+  formData.append("action", "getGroupMediaCollection");
   formData.append("params", data);
 
   const req = await fetch(PATH.urlApi, {
@@ -314,16 +314,15 @@ function createTableMediaCollection() {
       .updateConfig({
         columns: [
           "id",
-          "drawing_name",
-          "drawing_title",
-          "id_drawing_category",
+          "name",
+          "reference",
           {
             name: "image",
             data: null,
             formatter: (_, row) =>
               window.gridjs.html(`
                         <img src="${
-                          ressource.pathUpload + "small/" + row.cells[1].data
+                          ressource.pathUpload + "thumbnail/" + row.cells[1].data
                         }" 
                             alt="img" style="width:25px;max-width:100%;height:auto;" />`),
           },
