@@ -2,3 +2,8 @@
 composer.phar
 /.vscode/
 /node_modules/
+
+
+# config
+app/configUrl.js
+/app/configUrl.js

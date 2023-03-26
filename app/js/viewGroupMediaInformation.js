@@ -19,7 +19,6 @@ function viewGroupMediaInformation() {
         getGroupsMedia: document.querySelector('.getGroupsMedia'),
         saveInformation: document.querySelector(".saveInformation"),
         restit: document.querySelector('.restit'),
-        fieldTitle: document.querySelector('.restit'),
         fieldReference: document.querySelector('.formInformation [data-field-name="group-reference"]'),
         fieldTitle: document.querySelector('.formInformation [data-field-name="group-title"]'),
         fieldDesc: document.querySelector('.formInformation [data-field-name="group-desc"]'),
