@@ -20,6 +20,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
                 <li class="sidebar-li"><a href="#" class="r-link" data-view="viewGroupMediaCollection">Group collection</a></li>
                 <li class="sidebar-li"><a href="#" class="r-link" data-view="viewGroupMediaCreate">Ajouter groupe</a></li>
                 <li class="sidebar-li"><a href="#" class="r-link" data-view="viewGroupMediaOrder">Editer ordre media</a></li>
+                <li class="sidebar-li"><a href="#" class="r-link" data-view="viewGroupMediaCollection">Group collection 2</a></li>
                 <li class="sidebar-li"><a href="#" class="r-link" data-view="viewGroupMediaInformation">Editer groupe media</a></li>
               </ul>
               <div class="sidebar-cat">Test</div>
