@@ -79,7 +79,7 @@ function viewMediaCollection() {
                     total: data => data.count
                 },
                 pagination: {
-                    limit: 2,
+                    limit: 10,
                     server: {
                     url: (prev, page, limit) => `${prev}?controller=${q.controller}&action=${q.action}&limit=${limit}&offset=${page * limit}`
                     }

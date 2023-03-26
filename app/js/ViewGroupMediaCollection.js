@@ -3,9 +3,7 @@ import { PATH } from "../configUrl.js";
 const gridjs = new window.gridjs.Grid();
 
 function initView() {
-  document.getElementById(
-    "main"
-  ).innerHTML = `<div id="viewGroupMediaCollection">
+  document.getElementById('main').innerHTML = `<div id="viewGroupMediaCollection">
         <div id="table-group-collection-gridjs"></div>
     </div>`;
   viewGroupMediaCollection();
@@ -30,22 +28,16 @@ function viewGroupMediaCollection() {
           search: true,
           server: {
             url: PATH.urlApi,
-            then: (data) =>
-              data.data.map((item) => [
-                item.id,
-                item.reference,
-                item.is_active,
+            then: data => data.data.map(item => [
+                item.id,item.reference,item.is_active,
               ]),
-            total: (data) => data.count,
+            total: data => data.count
           },
           pagination: {
-            limit: 2,
+            limit: 10,
             server: {
-              url: (prev, page, limit) =>
-                `${prev}?controller=${q.controller}&action=${
-                  q.action
-                }&limit=${limit}&offset=${page * limit}`,
-            },
+              url: (prev, page, limit) =>  `${prev}?controller=${q.controller}&action=${q.action}&limit=${limit}&offset=${page * limit}`,
+            }
           },
           language: {
             search: {
