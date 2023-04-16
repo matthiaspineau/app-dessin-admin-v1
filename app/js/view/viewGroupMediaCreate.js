@@ -1,6 +1,6 @@
-import {getValuesFieldText} from "./utils/tools_form.js";
-import  '../../lib/sortable/sortable.min.js';
-import { PATH } from "../configUrl.js";
+import {getValuesFieldText} from "../utils/tools_form.js";
+import  '../../../lib/sortable/sortable.min.js';
+import { PATH } from "../../configUrl.js";
 
 
 const ressource = {
@@ -11,6 +11,7 @@ const ressource = {
 function initView() {
     document.getElementById('main').innerHTML = `
         <div id="viewComics">
+            ${template.title}
             ${template.formAddGroupMediaHTML}
         </div>`
 
@@ -72,6 +73,7 @@ function viewGroupMediaCreate() {
 
 
 const template = {
+    title: `<div>view media</div>`,
     formAddGroupMediaHTML: `
     <div class="formAddGroupMedia">
         <h5>Ajouter un goupe</h5>

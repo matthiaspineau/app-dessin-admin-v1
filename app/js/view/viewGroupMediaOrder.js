@@ -1,7 +1,8 @@
-import { fetchGetTableDraw } from "./fetch_data.js";
-import { getValuesFieldText } from "./utils/tools_form.js";
-import "../../lib/sortable/sortable.min.js";
-import { PATH } from "../configUrl.js";
+import { fetchGetTableDraw } from "../fetch_data.js";
+import { getValuesFieldText } from "../utils/tools_form.js";
+import "../../../lib/sortable/sortable.min.js";
+import { PATH } from "../../configUrl.js";
+import { notificationAction } from "../utils/notificationAction.js"
 
 const ressource = {
   pathUpload: PATH.urlUploadImg,
@@ -20,8 +21,14 @@ const state = {
 export function initView() {
   document.getElementById(
     "main"
-  ).innerHTML = `<div id="viewGroupMediaOrder"></div>`;
+  ).innerHTML = `<div>view ordering media group</div>
+                <div id="viewGroupMediaOrder"></div>`;
   viewGroupMediaOrder();
+
+  state.medias = []
+  state.medias_tmp_collection_table = []
+  state.medias_tmp_collection_group = []
+  state.medias_tmp_collection_fusionned = []
 }
 
 function viewGroupMediaOrder() {
@@ -109,6 +116,7 @@ function viewGroupMediaOrder() {
 											<button data-tmp-list="medias_tmp_collection_table" class="use-list-from btn btn-primary btn-sm mr-2">Liste tableau</button>
 											<button data-tmp-list="medias_tmp_collection_group" class="use-list-from btn btn-primary btn-sm mr-2">Liste group</button>
 											<button data-tmp-list="medias_tmp_collection_fusionned" class="use-list-from btn btn-primary btn-sm mr-2">Liste fusionné</button>
+                      <button class="refresh-list-media-all btn btn-primary btn-sm mr-2">Vidé les list</button>
 									</div>
 							</div>
 
@@ -126,7 +134,12 @@ function viewGroupMediaOrder() {
           componentOrder();
 
           document.querySelector(".formMediaGroupsAddMedias .save-medias-group").addEventListener("click", () => {
-						addGroupsMediaListMedias();
+						addGroupsMediaListMedias().then(() => {
+              notificationAction({
+                type: 'confirmation',
+                msg: 'les media ont bien été saugarder'
+              })
+            })
 					});
 
           break;
@@ -158,6 +171,7 @@ function componentOrder() {
     sortableCollection: document.querySelector("#sortable-collection"),
     removeItem: document.querySelectorAll(".card-sortable-media__remove"),
     saveOrder: document.querySelector(".save-order"),
+    refreshListMediaAll: document.querySelector(".refresh-list-media-all"),
   };
   const sortable = Sortable.create(ui.sortableCollection, {
     direction: "horizontal",
@@ -165,22 +179,35 @@ function componentOrder() {
   const method = {
     saveOrder: () => {
       let sortOrder = sortable.toArray();
-      let medias = [];
-      sortOrder.forEach((order) => {
-        state.medias_tmp_collection_table.filter((media) => {
-          if (media.id == order) {
-            let item = {
-              id: media.id,
-              src: media.src,
-            };
+      console.log(sortOrder)
+      let medias_tmp = [];
+  
+        state.medias.forEach((media) => {
+      
+            if (sortOrder.includes(media.id) && medias.includes(media.id) == false) {
+              console.log(media.id)
+              let item = {
+                id: media.id,
+                src: media.src,
+              };
+              medias.push(item);
+            }
 
-            medias.push(item);
-          }
+          
         });
-      });
-
 
       state.medias = medias;
+      notificationAction({
+        type: 'confirmation',
+        msg: 'l\'odre des images a bien été enregistrer, il faut maintenant les sauvegarder'
+      })
+    },
+    refreshListMediaAll: () => {
+      state.medias = []
+      state.medias_tmp_collection_table = []
+      state.medias_tmp_collection_group = []
+      state.medias_tmp_collection_fusionned = []
+      method.renderList()
     },
     renderList: (flag = "") => {
       let tmp_list = [];
@@ -192,20 +219,22 @@ function componentOrder() {
           tmp_list = state.medias_tmp_collection_group;
           break;
         case "medias_tmp_collection_fusionned":
-          let list_fusionned = [];
-          tmp_list = list_fusionned.concat(
+          tmp_list = state.medias_tmp_collection_fusionned.concat(
             state.medias_tmp_collection_table,
             state.medias_tmp_collection_group
           );
           break;
         default:
-          tmp_list = state.medias_tmp_collection_table;
+          tmp_list = state.medias_tmp_collection_fusionned.concat(
+            state.medias_tmp_collection_table,
+            state.medias_tmp_collection_group
+          );
           break;
       }
-
+      state.medias = tmp_list
       let mediaHtml = ``;
 
-      tmp_list.forEach((media) => {
+      state.medias.forEach((media) => {
         mediaHtml += `
 					<li class="card-sortable-media__content card-item" data-id="${media.id}">
 							<div class="card-sortable-media__remove" data-id-remove="${media.id}">retirer</div>
@@ -244,6 +273,9 @@ function componentOrder() {
   ui.saveOrder.addEventListener("click", () => {
     method.saveOrder();
   });
+  ui.refreshListMediaAll.addEventListener('click', () => {
+    method.refreshListMediaAll();
+  })
   method.renderList();
 }
 

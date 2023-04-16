@@ -1,5 +1,5 @@
-import { fetchGetTableDraw, fetchDelete } from './fetch_data.js';
-import { PATH } from "../configUrl.js";
+import { fetchGetTableDraw, fetchDelete } from '../fetch_data.js';
+import { PATH } from "../../configUrl.js";
 
 const ressource = {
     pathUpload:  PATH.urlUploadImg,

@@ -1,9 +1,11 @@
-import { fetchGetTableDraw } from "./fetch_data.js";
-import { getValuesFieldText, getValuesFieldCheckbox } from "./utils/tools_form.js";
-import { PATH } from "../configUrl.js";
+import { fetchGetTableDraw } from "../fetch_data.js";
+import { getValuesFieldText, getValuesFieldCheckbox } from "../utils/tools_form.js";
+// import { renderOptionsGroupsMedia } from "../utils/htmlForm.js"
+import { PATH } from "../../configUrl.js";
 
 export function initView() {
     document.getElementById("main").innerHTML = `<div id="viewGroupMediaInformation">
+        ${template.title}
         ${template.formGetGroupsMediaHTML}
         ${template.restitInformation}
         ${template.formInformation}
@@ -16,7 +18,6 @@ function viewGroupMediaInformation() {
 
     const ui = {
         main: document.querySelector('#viewGroupMediaInformation'),
-        getGroupsMedia: document.querySelector('.getGroupsMedia'),
         saveInformation: document.querySelector(".saveInformation"),
         restit: document.querySelector('.restit'),
         fieldReference: document.querySelector('.formInformation [data-field-name="group-reference"]'),
@@ -24,6 +25,7 @@ function viewGroupMediaInformation() {
         fieldDesc: document.querySelector('.formInformation [data-field-name="group-desc"]'),
         fieldIcone: document.querySelector('.formInformation [data-field-name="group-icone"]'),
         fieldActive: document.querySelector('.formInformation [data-field-name="group-active"]'),
+        selectGroupsMedia: '.select-groups-media[name="groups-media"]'
     };
    
   
@@ -42,9 +44,20 @@ function viewGroupMediaInformation() {
             ui.fieldDesc.value = info.description != undefined ? info.description : ''
             ui.fieldIcone.value = info.icone != undefined ? info.icone : ''
             if (data.is_active != undefined) {
-                console.log(data.is_active)
                 ui.fieldActive.value = data.is_active == 1 ? ui.fieldActive.setAttribute("checked", "checked") : ui.fieldActive.removeAttribute("checked")
             }
+
+        },
+        createOptionsSelectMediaGroups: () => {
+
+            let options = '<option id="0">Chosir une référence</option>'
+            method.fetchMediaGroupForSelectOptions().then((json) => {
+                console.log(json)
+                json.data.forEach(elt => {
+                    options += `<option value="${elt.id}">${elt.reference} (${elt.id})</option>`
+                })
+                document.querySelector(ui.selectGroupsMedia).innerHTML = options
+            })
 
         },
         getMediaGroup: () => {
@@ -54,17 +67,37 @@ function viewGroupMediaInformation() {
             })
            
         },
-        fetchMediaGroup: async () => {
-            
-            let textValue = getValuesFieldText({
-            format: "objectOfValue",
-            wrapper: ".getGroupsMediaInformation",
-            field: '[data-field-type="text"]',
+        fetchMediaGroupForSelectOptions: async () => {
+
+            let data = {};
+            data = JSON.stringify(data);
+
+            let formData = new FormData();
+            formData.append("controller", "MediaGroupsController");
+            formData.append("action", "getGroupMediaCollection");
+            formData.append("params", data);
+
+            const req = await fetch(PATH.urlApi, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                },
+                body: formData,
             });
         
-            let data = {
-            id: [textValue["group-id"]],
-            };
+            if (req.ok === true) {
+                return req.json();
+            } else {
+                throw new Error("nouvelle erreur lors de la creation");
+            }
+
+
+        },
+        fetchMediaGroup: async () => {
+        
+            let idGroup = document.querySelector(ui.selectGroupsMedia).value
+        
+            let data = {  id: [idGroup] };
             data = JSON.stringify(data);
         
             let formData = new FormData();
@@ -88,12 +121,6 @@ function viewGroupMediaInformation() {
             
         },
         saveInformation: async () => {
-   
-            // let textValue = getValuesFieldText({
-            //     format: "objectOfValue",
-            //     wrapper: ".formInformation",
-            //     field: '[data-field-type="text"]',
-            //     });
 
                 let isActive
                 if (ui.fieldActive.checked) {
@@ -133,10 +160,10 @@ function viewGroupMediaInformation() {
                 }
         },
     };
+    
+    method.createOptionsSelectMediaGroups() 
 
-
-    ui.getGroupsMedia.addEventListener('click', () => {
-        console.log('click')
+    document.querySelector(ui.selectGroupsMedia).addEventListener('change', () => {
         method.getMediaGroup()
     })
     ui.saveInformation.addEventListener('click', () => {
@@ -146,16 +173,15 @@ function viewGroupMediaInformation() {
 }
 
 const template = {
+    title: `<div>view media édition</div>`,
     formGetGroupsMediaHTML: 
         `<div class="getGroupsMediaInformation border mt-3 p-2">
             <h5 class="h5">Selectionner un group de media</h5>
             <div class="row">
-                <div class="col-4">
-                    <div class="form-label">
-                        <label>id du group</label>
-                        <input type="text" data-field-type="text" data-field-name="group-id" name="group-id" class="form-control form-control-sm" />
+                <div class="col-6">
+                    <div class="mt-2 mb-2">
+                        <select class="form-select form-select-sm select-groups-media" name="groups-media"></select>
                     </div>
-                    <button class="btn btn-primary btn-sm getGroupsMedia">Rechercher</button>
                 </div>
             </div>
         </div>

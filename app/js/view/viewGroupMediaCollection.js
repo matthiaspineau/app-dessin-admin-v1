@@ -1,4 +1,4 @@
-import { PATH } from "../configUrl.js";
+import { PATH } from "../../configUrl.js";
 
 const gridjs = new window.gridjs.Grid();
 

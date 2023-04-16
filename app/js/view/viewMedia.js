@@ -1,6 +1,4 @@
-import {getValuesFieldText} from "./utils/tools_form.js";
-import { PATH } from "../configUrl.js";
-
+import { PATH } from "../../configUrl.js";
 
 const ressource = {
     pathUpload:  PATH.urlUploadImg,

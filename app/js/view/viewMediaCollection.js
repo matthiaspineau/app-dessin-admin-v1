@@ -1,4 +1,4 @@
-import { PATH } from "../configUrl.js";
+import { PATH } from "../../configUrl.js";
 
 const gridjs = new window.gridjs.Grid()
 
@@ -55,17 +55,18 @@ function viewMediaCollection() {
                     { 
                         name: 'Actions',
                         formatter: (cell, row) => {
-                        return window.gridjs.h('button', {
-                            className: 'py-2 px-4 border rounded-md text-white bg-blue-600',
-                            onClick: () => {
-                                let item = {
-                                    id: row.cells[0].data,
-                                    name: row.cells[1].data
+                            return window.gridjs.h('button', {
+                                className: 'py-2 px-4 border rounded-md text-white bg-blue-600',
+                                onClick: () => {
+                                    let item = {
+                                        id: row.cells[0].data,
+                                        name: row.cells[1].data
+                                    }
+                                    if (window.confirm("Voulez supprimer cette image ?")) {
+                                        method.deleteDraw(item)
+                                    }
                                 }
-                                method.deleteDraw(item)
-
-                                }
-                            }, 'Delete');
+                            }, 'Supprimer');
                         }
                     },
                 ],
