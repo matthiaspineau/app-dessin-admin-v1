@@ -13,7 +13,8 @@ window.addEventListener("DOMContentLoaded", (e) => {
               <div class="sidebar-cat">Media</div>
               <ul class="sidebar-ul">
                   <li class="sidebar-li"><a href="#" class="r-link" data-view="viewMediaCollection">Media collection</a></li>
-                  <li class="sidebar-li"><a href="#" class="r-link" data-view="viewMedia">Ajouter media</a></li>
+                  <li class="sidebar-li"><a href="#" class="r-link" data-view="viewMediaGridCollection">Media grid collection</a></li>
+                  <li class="sidebar-li"><a href="#" class="r-link" data-view="viewMediaCreate">Ajouter media</a></li>
               </ul>
               <div class="sidebar-cat">Groupes media</div>
               <ul class="sidebar-ul">

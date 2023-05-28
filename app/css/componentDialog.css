@@ -16,9 +16,7 @@
 
 }
 .component-dialog .dialog__close {
-    position: absolute;
-    top: 5px;
-    right: 5px;
+
 }
 .component-dialog .dialog__contain {
     width: 600px;
@@ -30,24 +28,34 @@
     grid-template-columns: 1fr;
     grid-template-rows: 50px 1fr 50px;
 
+    border-radius: 4px;
+    background: #fff;
 }
 .component-dialog .dialog__title {
     position: relative;
     grid-row: 1;
-    padding: 5px;
-    background: blue;
+    padding: 5px 10px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .component-dialog .dialog__content {
     grid-row: 2;
-    padding: 5px;
-    background: yellow;
+    padding: 5px 10px;
+
     overflow: hidden;
     overflow-y: auto;
 }
 .component-dialog .dialog__action {
     grid-row: 3;
-    padding: 5px;
-    background: green;
+    padding: 5px 10px;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
 }
 
 

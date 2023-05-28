@@ -3,6 +3,7 @@ import { getValuesFieldText } from "../utils/tools_form.js";
 import "../../../lib/sortable/sortable.min.js";
 import { PATH } from "../../configUrl.js";
 import { notificationAction } from "../utils/notificationAction.js"
+import { ComponentSelectGroupMedia } from "../components/componentSelectGroupMedia.js";
 
 const ressource = {
   pathUpload: PATH.urlUploadImg,
@@ -52,7 +53,12 @@ function viewGroupMediaOrder() {
           <div class="tab-pane" id="get-group-media" role="tabpanel" aria-labelledby="aa-tab" tabindex="0"></div>
           <div class="tab-pane" id="edit-order" role="tabpanel" aria-labelledby="edit-order-tab" tabindex="0"></div>
       </div>`,
-    tabsContentGetGroupMedia: `<div class="formMediaGroups border mt-3 p-2">
+      selectGroupsMedia: `<div class="container-group-select-media"></div>`,
+      tabsContentGetGroupMedia: `<div class="formMediaGroups border mt-3 p-2">
+        <h5 class="h5">Media d'un groupe</h5>
+          <div class="container-group-select-media"></div>
+      </div>`,
+    tabsContentGetGroupMedia2: `<div class="formMediaGroups border mt-3 p-2">
         <h5 class="h5">Media d'un groupe</h5>
         <div class="row">
             <div class="col-4">
@@ -146,13 +152,21 @@ function viewGroupMediaOrder() {
           break;
         case "#get-group-media":
 		
-          document.querySelector(idTarget).innerHTML = template.tabsContentGetGroupMedia
+          // document.querySelector(idTarget).innerHTML = template.tabsContentGetGroupMedia
        
-          document.querySelector(ui.actMediaOfGroup).addEventListener('click', () => {
-            getGroupsMedia().then((json) => {
-              state.medias_tmp_collection_group = JSON.parse(json.data[0].medias ).medias
-            })
+          // document.querySelector(ui.actMediaOfGroup).addEventListener('click', () => {
+          //   getGroupsMedia().then((json) => {
+          //     state.medias_tmp_collection_group = JSON.parse(json.data[0].medias).medias
+          //   })
+          // })
+          // -----------------------
+          document.querySelector(idTarget).innerHTML = template.tabsContentGetGroupMedia
+          let componentSelectGroupMedia = ComponentSelectGroupMedia({
+            target: '.container-group-select-media',
+            callbackOnChange: setStateMediasTmpCollectionGroup
           })
+          componentSelectGroupMedia.method.createOptionsSelectMediaGroups()
+      
           break;
         case "#edit-order":
           document.querySelector(idTarget).innerHTML = template.tabsContentEditOrderMedia;
@@ -249,7 +263,7 @@ function componentOrder() {
             state.medias_tmp_collection_table,
             state.medias_tmp_collection_group
           );
-          console.log(tmp_list)
+          // console.log(tmp_list)
           break;
         default:
           tmp_list = state.medias_tmp_collection_fusionned.concat(
@@ -260,13 +274,14 @@ function componentOrder() {
       }
       state.medias = tmp_list
       let mediaHtml = ``;
-
+      console.log(state.medias)
       state.medias.forEach((media) => {
         mediaHtml += `
 					<li class="card-sortable-media__content card-item" data-id="${media.id}">
 							<div class="card-sortable-media__remove" data-id-remove="${media.id}">retirer</div>
 							<div class="card-sortable-media__img"><img src="${ressource.pathUpload}small/${media.src}" alt="media"></div>
-							<div class="card-sortable-media__desc">id: ${media.id}</div>
+							<div class="card-sortable-media__desc">${media.original_name} (${media.id})</div>
+
 					</li>
 					`;
       });
@@ -341,7 +356,18 @@ async function getGroupsMedia() {
     throw new Error("nouvelle erreur lors de la creation");
   }
 }
+// state.medias = []
+// state.medias_tmp_collection_table = []
+// state.medias_tmp_collection_group = []
+// state.medias_tmp_collection_fusionned = []
+function setStateMediasTmpCollectionGroup(json) {
+  console.log(state.medias_tmp_collection_group)
+  console.log(json)
+  state.medias_tmp_collection_group = JSON.parse(json.medias).medias
+  console.log(state.medias_tmp_collection_group)
 
+
+}
 
 /**
  * collection medias table
@@ -356,6 +382,7 @@ function createTableMediaCollection() {
       .updateConfig({
         columns: [
           "id",
+          "original_name",
           "name",
           "reference",
           {
@@ -364,7 +391,7 @@ function createTableMediaCollection() {
             formatter: (_, row) =>
               window.gridjs.html(`
                         <img src="${
-                          ressource.pathUpload + "thumbnail/" + row.cells[1].data
+                          ressource.pathUpload + "thumbnail/" + row.cells[2].data
                         }" 
               alt="img" style="width:25px;max-width:100%;height:auto;" />`),
           },
@@ -379,7 +406,8 @@ function createTableMediaCollection() {
                   onClick: () => {
                     let item = {
                       id: row.cells[0].data,
-                      src: row.cells[1].data,
+                      original_name: row.cells[1].data,
+                      src: row.cells[2].data,
                     };
                     state.medias_tmp_collection_table.push(item);
                     document.querySelector(".nb-media").innerHTML =

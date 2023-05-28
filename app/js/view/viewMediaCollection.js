@@ -26,11 +26,11 @@ function initView() {
     viewMediaCollection()
     document.querySelector('.act-modal').addEventListener('click', () => {
         let dialog = ComponentDialog({
-            title: 'title',
+            title: '<div>title</div>',
             content: 'contenu',
-            action: '<div>button<div>',
+            action: '<div>button</div>',
             width: 800,
-            height: 200
+            height: 500
         })
         dialog.method.open()
     })

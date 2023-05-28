@@ -1,14 +1,14 @@
-// import { renderOptionsGroupsMedia } from "../utils/htmlForm.js"
+import { ComponentSelectGroupMedia } from "../components/componentSelectGroupMedia.js";
 import { PATH } from "../../configUrl.js";
 
 export function initView() {
     document.getElementById("main").innerHTML = `<div id="viewGroupMediaInformation">
         ${template.title}
-        ${template.formGetGroupsMediaHTML}
+        ${template.selectGroupsMedia}
         ${template.restitInformation}
         ${template.formInformation}
     </div>`;
-    viewGroupMediaInformation();
+    viewGroupMediaInformation();  
 }
 
 
@@ -29,94 +29,22 @@ function viewGroupMediaInformation() {
   
     const method = {
        
-        showRestit: (data) => {
-            let info = data.information
+        showRestit: (json) => {
+            let info = json
 
             if ( typeof info == 'string') {
-                info = JSON.parse(data.information)
+                info = JSON.parse(json)
             }
 
-            ui.saveInformation.setAttribute('id_group', data.id)
-            ui.fieldReference.value = data.reference
+            ui.saveInformation.setAttribute('id_group', info.id)
+            ui.fieldReference.value = info.reference
             ui.fieldTitle.value = info.title != undefined ? info.title : ''
             ui.fieldDesc.value = info.description != undefined ? info.description : ''
             ui.fieldIcone.value = info.icone != undefined ? info.icone : ''
-            if (data.is_active != undefined) {
-                ui.fieldActive.value = data.is_active == 1 ? ui.fieldActive.setAttribute("checked", "checked") : ui.fieldActive.removeAttribute("checked")
+            if (info.is_active != undefined) {
+                ui.fieldActive.value = info.is_active == 1 ? ui.fieldActive.setAttribute("checked", "checked") : ui.fieldActive.removeAttribute("checked")
             }
 
-        },
-        createOptionsSelectMediaGroups: () => {
-
-            let options = '<option id="0">Chosir une référence</option>'
-            method.fetchMediaGroupForSelectOptions().then((json) => {
-                console.log(json)
-                json.data.forEach(elt => {
-                    options += `<option value="${elt.id}">${elt.reference} (${elt.id})</option>`
-                })
-                document.querySelector(ui.selectGroupsMedia).innerHTML = options
-            })
-
-        },
-        getMediaGroup: () => {
-            method.fetchMediaGroup().then((json) => {
-                method.showRestit(json.data[0])
-                ui.restit.innerHTML = JSON.stringify(json.data)
-            })
-           
-        },
-        fetchMediaGroupForSelectOptions: async () => {
-
-            let data = {};
-            data = JSON.stringify(data);
-
-            let formData = new FormData();
-            formData.append("controller", "MediaGroupsController");
-            formData.append("action", "getGroupMediaCollection");
-            formData.append("params", data);
-
-            const req = await fetch(PATH.urlApi, {
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                },
-                body: formData,
-            });
-        
-            if (req.ok === true) {
-                return req.json();
-            } else {
-                throw new Error("nouvelle erreur lors de la creation");
-            }
-
-
-        },
-        fetchMediaGroup: async () => {
-        
-            let idGroup = document.querySelector(ui.selectGroupsMedia).value
-        
-            let data = {  id: [idGroup] };
-            data = JSON.stringify(data);
-        
-            let formData = new FormData();
-            formData.append("controller", "MediaGroupsController");
-            formData.append("action", "getGroupMediaCollection");
-            formData.append("params", data);
-        
-            const req = await fetch(PATH.urlApi, {
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                },
-                body: formData,
-            });
-        
-            if (req.ok === true) {
-                return req.json();
-            } else {
-                throw new Error("nouvelle erreur lors de la creation");
-            }
-            
         },
         saveInformation: async () => {
 
@@ -159,11 +87,13 @@ function viewGroupMediaInformation() {
         },
     };
     
-    method.createOptionsSelectMediaGroups() 
-
-    document.querySelector(ui.selectGroupsMedia).addEventListener('change', () => {
-        method.getMediaGroup()
+    // method.createOptionsSelectMediaGroups() 
+    let componentSelectGroupMedia = ComponentSelectGroupMedia({
+        target: '.container-group-select-media',
+        callbackOnChange: method.showRestit
     })
+    componentSelectGroupMedia.method.createOptionsSelectMediaGroups()
+   
     ui.saveInformation.addEventListener('click', () => {
         method.saveInformation()
     })
@@ -172,25 +102,14 @@ function viewGroupMediaInformation() {
 
 const template = {
     title: `<div>view media édition</div>`,
-    formGetGroupsMediaHTML: 
-        `<div class="getGroupsMediaInformation border mt-3 p-2">
-            <h5 class="h5">Selectionner un group de media</h5>
-            <div class="row">
-                <div class="col-6">
-                    <div class="mt-2 mb-2">
-                        <select class="form-select form-select-sm select-groups-media" name="groups-media"></select>
-                    </div>
-                </div>
-            </div>
-        </div>
-        `,
+    selectGroupsMedia: `<div class="container-group-select-media"></div>`,
     restitInformation : 
         `<div class="restit">no information</div>`,
     formInformation: 
     `<div class="formInformation border mt-3 p-2">
         <div class="row">
             <div class="col-12">
-                <h5>Ajouter un goupe</h5>
+                <h5>Modification des information du goupe</h5>
                 <div class="form-label">
                     <label>Reference</label> 
                     <input type="text" data-field-type="text" data-field-name="group-reference" name="group-reference" class="form-control form-control-sm" />

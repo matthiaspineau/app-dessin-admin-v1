@@ -12,10 +12,10 @@ function initView() {
             <div class="loader-ui"></div>
         </div>`
 
-    viewMedia()
+        viewMediaCreate()
 }
 
-function viewMedia() {
+function viewMediaCreate() {
     
     const ui = {
         createMedia: document.querySelector('.createMedia'),

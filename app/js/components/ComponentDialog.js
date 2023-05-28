@@ -10,9 +10,6 @@ function ComponentDialog(options = {}) {
         //
         width: options.width != undefined ? options.width : 600,
         height: options.height != undefined ? options.height : 500,
-        top: "calc(" + (window.screen.height / 2) + 'px' + ' - ' + (options.height != undefined ? options.height : 500)+ "px",
-        left: "calc(" + (window.screen.width / 2)  - (options.width != undefined ? options.width : 500) ,
-        a: "calc(" + '100px' + "- 90px)",
     }
     const ui = {
         target: `${state.target}`,
