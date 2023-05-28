@@ -1,0 +1,131 @@
+.component-dialog {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+
+    height: 100vh;
+    background: rgba(0,0,0,0.8);
+}
+
+/* .component-dialog */
+
+
+.component-dialog .dialog__overlay {
+
+}
+.component-dialog .dialog__close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+.component-dialog .dialog__contain {
+    width: 600px;
+    height: 500px;
+    margin: 0 auto;
+    margin-top: 100px;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 50px 1fr 50px;
+
+}
+.component-dialog .dialog__title {
+    position: relative;
+    grid-row: 1;
+    padding: 5px;
+    background: blue;
+}
+.component-dialog .dialog__content {
+    grid-row: 2;
+    padding: 5px;
+    background: yellow;
+    overflow: hidden;
+    overflow-y: auto;
+}
+.component-dialog .dialog__action {
+    grid-row: 3;
+    padding: 5px;
+    background: green;
+}
+
+
+
+
+/* .viewer-comics__overlay{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+} */
+.viewer-comics .close{
+    padding: 10px;
+    color: #fff;
+}
+.viewer-comics__contain {
+    position: relative;
+    padding-top: 40px;
+    background: #fff;
+}
+
+.viewer-comics__settings {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    padding: 8px;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+    background-color: #000;
+}
+.viewer-comics__content {
+
+    height: calc(100% - 30px);
+    overflow: hidden;
+    overflow-y: auto;
+}
+.viewer-comics__medias{
+    display: flex;
+    flex-direction: column;
+}
+.viewer-comics__media {
+    margin: 0 auto;
+    border: 1px solid;
+}
+/* .viewer-comics .viewer-comics__media img {
+    max-width: 100%;
+    height: auto;
+} */
+
+@media (min-width: 576px) {
+    .viewer-comics__media {
+        max-width: 500px;
+    }
+}
+@media (min-width: 768px) {
+    .viewer-comics__media {
+        max-width: 700px;
+    }
+}
+@media (min-width: 992px) {
+    .viewer-comics__media {
+        max-width: 900;
+    }
+}
+@media (min-width: 1200px) {
+    .viewer-comics__media {
+        max-width: 1000px;
+    }
+}
+@media (min-width: 1400px) {
+    .viewer-comics__media {
+        max-width: 1200px;
+    }
+}

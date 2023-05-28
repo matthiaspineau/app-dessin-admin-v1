@@ -1,76 +1,51 @@
-import { fetchGetTableDraw, fetchDelete } from '../fetch_data.js';
+import { fetchGetTableDraw, fetchDelete } from "../fetch_data.js";
 import { PATH } from "../../configUrl.js";
 
 const ressource = {
-    pathUpload:  PATH.urlUploadImg,
-    sizeSmall:  'original'
-}
+  pathUpload: PATH.urlUploadImg,
+  sizeSmall: "original",
+};
 const storeDraw = {
-    drawList: [],
-    drawId: 0,
-    drawItem: {},
-    drawOfComics: []
-}
-const gridjs = new window.gridjs.Grid()
+  drawList: [],
+  drawId: 0,
+  drawItem: {},
+  drawOfComics: [],
+};
+const gridjs = new window.gridjs.Grid();
 
 export function initView() {
-    console.log('viewTest')
+  console.log("viewTest");
 
-
-    document.getElementById('main').innerHTML = `<div id="d-collection"></div>`
-    go()
+  document.getElementById("main").innerHTML = `<div id="d-collection">
+        <div class="test-1">clique</div>
+      </div>`;
+  document.querySelector(".test-1").addEventListener("click", () => {
+    go();
+  });
 }
 
-function go() {
-    console.log(PATH.urlApi)
+async function go() {
+  let data = {
+    ok: "oui",
+  };
+  data = JSON.stringify(data);
 
-    const q = {
-        controller: 'DrawingController',
-        action: 'getDrawsCollection',
-    }
-    
-    gridjs.updateConfig({
-        columns: ['id','drawing_title'],
-        // search: {
-        //     server: {
-        //         url: (prev, keyword) => `${prev}?controller=${q.controller}&action=${q.action}&search=${keyword}`
-        //     }
-        // },
-        pagination: {
-          limit: 2,
-          server: {
-            url: (prev, page, limit) => `${prev}?controller=${q.controller}&action=${q.action}&limit=${limit}&offset=${page * limit}`
-          }
-        },
-        server: {
-          url: PATH.urlApi,
-          then: data => data.data.map(item => [
-            item.id, item.drawing_title
-          ]),
-          total: data => data.count
-        } 
-      }).render(document.getElementById("d-collection"));
+  let formData = new FormData();
 
-}
+  formData.append("controller", "MediaController");
+  formData.append("action", "testScaleMedia");
+  formData.append("params", data);
 
+  const req = await fetch(PATH.urlApi, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+    },
+    body: formData,
+  });
 
-
-class dialogModal {
-
-  constructor(options) {
-    super()
-
+  if (req.ok === true) {
+    return req.json();
   }
-
-  template() {
-    let html = `
-      <div class="">
-        <div class="">
-          <div class="">title</div>
-          <div class="">content</div>
-          <div class="">action</div>
-        </div>
-      </div>`
-  }
-
+  throw new Error("nouvelle erreur lors de la creation");
 }

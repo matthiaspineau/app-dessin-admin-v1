@@ -36,7 +36,8 @@ function viewMedia() {
 
             let i = 0
             for (const file of files) {
-                console.log(file)
+  
+
                 let imgName = file.name;
                 let imgSize = file.size;
                 let imgType = file.type;

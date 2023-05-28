@@ -32,104 +32,130 @@ export function initView() {
 }
 
 function viewGroupMediaOrder() {
-  document.getElementById("viewGroupMediaOrder").innerHTML = `
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" id="tabsComponent" role="tablist">
+
+  
+
+  const template = {
+    tabsNav: `<ul class="nav nav-tabs" id="tabsComponent" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="get-media-tab" data-bs-toggle="tab" data-bs-target="#get-media" type="button" role="tab" aria-controls="get-media" aria-selected="false">Collection media</button>
         </li>
         <li class="nav-item" role="presentation">
-				<button class="nav-link" id="get-group-media-tab" data-bs-toggle="tab" data-bs-target="#get-group-media" type="button" role="tab" aria-controls="get-group-media" aria-selected="false">Collection groupe</button>
+        <button class="nav-link" id="get-group-media-tab" data-bs-toggle="tab" data-bs-target="#get-group-media" type="button" role="tab" aria-controls="get-group-media" aria-selected="false">Collection groupe</button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="edit-order-tab" data-bs-toggle="tab" data-bs-target="#edit-order" type="button" role="tab" aria-controls="edit-order" aria-selected="false">Ordonné les médias</button>
         </li>
-        </ul>
-        
-        <!-- Tab panes -->
-        <div class="tab-content">
-        <div class="tab-pane" id="get-media" role="tabpanel" aria-labelledby="add-media-tab" tabindex="0"></div>
-        <div class="tab-pane" id="get-group-media" role="tabpanel" aria-labelledby="aa-tab" tabindex="0"></div>
-        <div class="tab-pane" id="edit-order" role="tabpanel" aria-labelledby="edit-order-tab" tabindex="0"></div>
-        </div>`;
+      </ul>`,
+    tabsContent: `<div class="tab-content">
+          <div class="tab-pane" id="get-media" role="tabpanel" aria-labelledby="add-media-tab" tabindex="0"></div>
+          <div class="tab-pane" id="get-group-media" role="tabpanel" aria-labelledby="aa-tab" tabindex="0"></div>
+          <div class="tab-pane" id="edit-order" role="tabpanel" aria-labelledby="edit-order-tab" tabindex="0"></div>
+      </div>`,
+    tabsContentGetGroupMedia: `<div class="formMediaGroups border mt-3 p-2">
+        <h5 class="h5">Media d'un groupe</h5>
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group formGetGroupsMedia">
+                    <label>id du group</label>
+                    <input type="text" data-field-type="text" data-field-name="group-id" name="group-id" class="form-control form-control-sm" />
+                </div>
+                <button class="btn btn-primary btn-sm mt-2 actMediaOfGroup">Rechercher</button>
+            </div>
+        </div>
+      </div>`,
+    tabsContentEditOrderMedia: `<div id="edit-order-media">
+          <div id="order-step-stored" class="row mt-2 mb-2">
+            <h5>liste des media</h5>
+            <div>
+              <button data-tmp-list="medias_tmp_collection_table" class="use-list-from btn btn-primary btn-sm mr-2">Liste tableau</button>
+              <button data-tmp-list="medias_tmp_collection_group" class="use-list-from btn btn-primary btn-sm mr-2">Liste group</button>
+              <button data-tmp-list="medias_tmp_collection_fusionned" class="use-list-from btn btn-primary btn-sm mr-2">Liste fusionné</button>
+              <button class="refresh-list-media-all btn btn-primary btn-sm mr-2">Vidé les list</button>
+            </div>
+          </div>
 
-  // tabs
-  const bsTab = new bootstrap.Tab("#tabsComponent");
-  const tabEl = document.querySelectorAll('button[data-bs-toggle="tab"]');
+          <div class="mt-2 mb-2">
+              <h5>liste utilisé</h5>
+          </div>
+
+          <ul id="sortable-collection" class="card-sortable-media__container"></ul>
+          <div class="mt-3">
+              <button class="btn btn-primary btn-sm save-order">sauvegarder</button>
+          </div>
+          <div>
+            <div class="formMediaGroupsAddMedias border mt-3 p-2">
+              <h5 class="h5">Ajouter un group de media</h5>
+              <div class="row">
+                  <div class="col-4">
+                      <div class="form-label">
+                          <label>id du group</label>
+                          <input type="text" data-field-type="text" data-field-name="group-id" name="group-id" class="form-control form-control-sm" />
+                      </div>
+                      <button class="btn btn-primary btn-sm save-medias-group">Enregistrer</button>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>`,
+    tabsContentGetMedia: `<div>
+      <div id="">
+          <div class="row">
+              <div class="col-md-6">
+                  <div>nb media : <span class="nb-media">${state.medias.length}</span></div>
+                  <button class="btn btn-primary btn-sm act-2 refreshList">Vider la liste</button>
+              </div> 
+          </div>
+      </div>
+      <div id="table-media-collection-gridjs"></div>
+    </div>`
+  }
+
+  const ui = {
+    uiTabsComponent: '#tabsComponent',
+     
+    buttonNavTabs: 'button[data-bs-toggle="tab"]',
+    btnRefreshList: '.refreshList',
+    actMediaOfGroup: '.actMediaOfGroup'
+  }
+
+
+  document.getElementById("viewGroupMediaOrder").innerHTML = `
+      ${template.tabsNav}
+      ${template.tabsContent}
+  `;
+
+  // Construction des tabs content
+  new bootstrap.Tab(ui.uiTabsComponent);
+  const tabEl = document.querySelectorAll(ui.buttonNavTabs);
   tabEl.forEach((elt) => {
     elt.addEventListener("shown.bs.tab", (event) => {
-      event.target;
-      event.relatedTarget;
 
       let idTarget = event.target.dataset.bsTarget;
 
       switch (idTarget) {
   
         case "#get-media":
-          document.querySelector(idTarget).innerHTML = `<div>
-                        <div id="">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div>nb media : <span class="nb-media">${state.medias.length}</span></div>
-                                    <button class="btn btn-primary btn-sm act-2 refreshList">Vider la liste</button>
-                                </div> 
-                            </div>
-                        </div>
-                        <div id="table-media-collection-gridjs"></div>
-                    </div>`;
+          document.querySelector(idTarget).innerHTML = template.tabsContentGetMedia;
           createTableMediaCollection();
  
-					document.querySelector(".refreshList").addEventListener("click", () => {
+					document.querySelector(ui.btnRefreshList).addEventListener("click", () => {
             state.medias_tmp_collection_table = []
           });
 
           break;
         case "#get-group-media":
 		
-          document.querySelector(idTarget).innerHTML = `
-								<div class="formMediaGroups border mt-3 p-2">
-									<h5 class="h5">Media d'un groupe</h5>
-									<div class="row">
-											<div class="col-4">
-													<div class="form-group formGetGroupsMedia">
-															<label>id du group</label>
-															<input type="text" data-field-type="text" data-field-name="group-id" name="group-id" class="form-control form-control-sm" />
-													</div>
-													<button class="btn btn-primary btn-sm mt-2 actMediaOfGroup">Rechercher</button>
-											</div>
-									</div>
-								</div>
-								`;
+          document.querySelector(idTarget).innerHTML = template.tabsContentGetGroupMedia
        
-							document.querySelector('.actMediaOfGroup').addEventListener('click', () => {
-								getGroupsMedia().then((json) => {
-									state.medias_tmp_collection_group = JSON.parse(json.data[0].medias ).medias
-								})
-							})
+          document.querySelector(ui.actMediaOfGroup).addEventListener('click', () => {
+            getGroupsMedia().then((json) => {
+              state.medias_tmp_collection_group = JSON.parse(json.data[0].medias ).medias
+            })
+          })
           break;
         case "#edit-order":
-          document.querySelector(idTarget).innerHTML = `
-						<div id="edit-order-media">
-							<div id="order-step-stored" class="row mt-2 mb-2">
-									<h5>liste des media</h5>
-									<div>
-											<button data-tmp-list="medias_tmp_collection_table" class="use-list-from btn btn-primary btn-sm mr-2">Liste tableau</button>
-											<button data-tmp-list="medias_tmp_collection_group" class="use-list-from btn btn-primary btn-sm mr-2">Liste group</button>
-											<button data-tmp-list="medias_tmp_collection_fusionned" class="use-list-from btn btn-primary btn-sm mr-2">Liste fusionné</button>
-                      <button class="refresh-list-media-all btn btn-primary btn-sm mr-2">Vidé les list</button>
-									</div>
-							</div>
-
-							<div class="mt-2 mb-2">
-									<h5>liste utilisé</h5>
-							</div>
-
-							<ul id="sortable-collection" class="card-sortable-media__container"></ul>
-							<div class="mt-3">
-									<button class="btn btn-primary btn-sm save-order">sauvegarder</button>
-							</div>
-							<div>${templateFormAddGroupsMediaAddMediasHTML()}</div>
-					</div>`;
+          document.querySelector(idTarget).innerHTML = template.tabsContentEditOrderMedia;
 
           componentOrder();
 
@@ -223,6 +249,7 @@ function componentOrder() {
             state.medias_tmp_collection_table,
             state.medias_tmp_collection_group
           );
+          console.log(tmp_list)
           break;
         default:
           tmp_list = state.medias_tmp_collection_fusionned.concat(
@@ -282,23 +309,6 @@ function componentOrder() {
 /* ---------------------------------- */
 /* ---------------------------------- */
 
-function templateFormAddGroupsMediaAddMediasHTML() {
-  let html = `<div class="formMediaGroupsAddMedias border mt-3 p-2">
-                    <h5 class="h5">Ajouter un group de media</h5>
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="form-label">
-                                <label>id du group</label>
-                                <input type="text" data-field-type="text" data-field-name="group-id" name="group-id" class="form-control form-control-sm" />
-                            </div>
-                            <button class="btn btn-primary btn-sm save-medias-group">Enregistrer</button>
-                        </div>
-                    </div>
-                </div>
-                `;
-  return html;
-}
-
 
 async function getGroupsMedia() {
   let textValue = getValuesFieldText({
@@ -356,7 +366,7 @@ function createTableMediaCollection() {
                         <img src="${
                           ressource.pathUpload + "thumbnail/" + row.cells[1].data
                         }" 
-                            alt="img" style="width:25px;max-width:100%;height:auto;" />`),
+              alt="img" style="width:25px;max-width:100%;height:auto;" />`),
           },
           {
             name: "store",

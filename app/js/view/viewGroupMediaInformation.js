@@ -1,5 +1,3 @@
-import { fetchGetTableDraw } from "../fetch_data.js";
-import { getValuesFieldText, getValuesFieldCheckbox } from "../utils/tools_form.js";
 // import { renderOptionsGroupsMedia } from "../utils/htmlForm.js"
 import { PATH } from "../../configUrl.js";
 

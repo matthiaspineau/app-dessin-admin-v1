@@ -1,4 +1,5 @@
 import { PATH } from "../../configUrl.js";
+import { ComponentDialog } from "../components/ComponentDialog.js";
 
 const gridjs = new window.gridjs.Grid()
 
@@ -6,7 +7,7 @@ const ressource = {
     pathUpload:  PATH.urlUploadImg,
     sizeSmall:  'small'
 }
-// PATH.urlApi
+
 const storeDraw = {
     drawList: [],
     drawId: 0,
@@ -16,20 +17,30 @@ const storeDraw = {
 
 function initView() {
     document.getElementById('main').innerHTML = `
-        <div id="viewMediaCollection">
+        <div id="viewMediaCollection"><div class="act-modal">modal</div>
             ${template.title}
             ${template.collection}
         </div>
         `
 
     viewMediaCollection()
+    document.querySelector('.act-modal').addEventListener('click', () => {
+        let dialog = ComponentDialog({
+            title: 'title',
+            content: 'contenu',
+            action: '<div>button<div>',
+            width: 800,
+            height: 200
+        })
+        dialog.method.open()
+    })
     
 }
 
 function viewMediaCollection() {
     
     const ui = {
-        // createGroup: document.querySelector('.btnAddGroupMedia'),
+        tableMediaCollection: '.table-media-collection'
     };
 
     const method = {
@@ -43,13 +54,14 @@ function viewMediaCollection() {
             gridjs.updateConfig({
                 columns: [
                     "id",
+                    "original_name",
                     "name",
                     "reference",
                     { 
                         name: 'image',
                         data: null,
                         formatter: (_, row) => window.gridjs.html(`
-                            <img src="${ressource.pathUpload+'small/'+(row.cells[1].data)}" 
+                            <img src="${ressource.pathUpload+'small/'+(row.cells[2].data)}" 
                                 alt="img" style="width:32px;max-width:100%;height:auto;" />`)
                     },
                     { 
@@ -75,7 +87,7 @@ function viewMediaCollection() {
                 server: {
                     url: PATH.urlApi,
                     then: data => data.data.map(item => [
-                    item.id, item.name, item.reference
+                    item.id, item.original_name, item.name, item.reference
                     ]),
                     total: data => data.count
                 },
@@ -98,7 +110,7 @@ function viewMediaCollection() {
                     results: () => "enregistrement(s)",
                     },
                 },
-            }).render(document.querySelector(".grid-collection"));
+            }).render(document.querySelector(ui.tableMediaCollection));
         },
         deleteDraw: (item) => {
             let params = {
@@ -141,9 +153,6 @@ function viewMediaCollection() {
         }
     }
 
-    // ui.createGroup.addEventListener("click", () => {
-        
-    // })
 
     method.createTable()
 }
@@ -152,7 +161,7 @@ function viewMediaCollection() {
 
 const template = {
     title: `<div>view media collection</div>`,
-    collection: `<div class="grid-collection"></div>`
+    collection: `<div class="table-media-collection"></div>`
 }
 
 

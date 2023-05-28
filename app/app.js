@@ -24,7 +24,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
               </ul>
               <div class="sidebar-cat">Test</div>
               <ul class="sidebar-ul"><span></span>
-                  <li class="sidebar-li"><a href="#" class="r-link" data-view="">Test</a></li>
+                  <li class="sidebar-li"><a href="#" class="r-link" data-view="viewTest">Test</a></li>
               </ul>
           </div>
           <div id="main" class="dock-main">
