@@ -7,6 +7,7 @@ import { ComponentSelectGroupMedia } from "../components/componentSelectGroupMed
 import { ComponentSortable } from "../components/ComponentSortable.js";
 import { fetchMedias } from "../utils/fetchMedias.js";
 import { ComponentDrawer } from "../components/ComponentDrawer.js";
+import { ComponentDialog } from "../components/ComponentDialog.js";
 // import { ComponentTableGridMedias } from "../components/ComponentTableGridMedias.js";
 
 const ressource = {
@@ -49,25 +50,26 @@ function viewGroupMediaOrder() {
   const componentSortable = ComponentSortable({
     target: '#sortable-collection',
     wrapper: '.wrapper-sortable',
-    medias: [],
-    idGroupMedia: 0
   })
 
   const state = {
     groupMedia: null,
     componentSortable: null,
     orderMedias: [],
-    mediasList: []
+    idsMedias: []
   }
 
   const ui = {
     titleGroup: '.title-group',
     containerGroupMedia: '.container-group-media',
-    tableGridJs: '#table-media-collection-gridjs'
+    tableGridJs: '#table-media-collection-gridjs',
+    saveOrder: '.save-order'
   }
  
   const template = {
-  
+    saveOrder: `<div>
+        <button class="btn btn-primary mt-3 save-order">Sauvegarder la disposition</button>
+      </div>`,
   }
 
   const method = {
@@ -75,11 +77,17 @@ function viewGroupMediaOrder() {
 
       state.groupMedia = groupMedia
       document.querySelector(ui.titleGroup).innerHTML = state.groupMedia.reference
-      let result = await fetchMedias(PATH.urlApi, {ids: JSON.parse(state.groupMedia.medias).medias})
+      console.log(state.groupMedia)
+      let result = await fetchMedias(PATH.urlApi, {ids: JSON.parse(state.groupMedia.ids_medias)['ids_medias']})
       
+      document
+              .querySelector(ui.containerGroupMedia)
+              .insertAdjacentHTML("beforeend", template.saveOrder);
+      document.querySelector(ui.saveOrder).addEventListener('click', method.saveOrder)
+
       // ----- sort array result
       let arrayTmp = [];
-      let arrayOrder = JSON.parse(state.groupMedia.medias).medias;
+      let arrayOrder = JSON.parse(state.groupMedia.ids_medias)['ids_medias'];
       arrayOrder.forEach( id => {
         result.data.find(elt => {
           if (elt.id == id) {
@@ -87,12 +95,55 @@ function viewGroupMediaOrder() {
           }
         })
       });
-      state.mediasList = arrayTmp
+      state.idsMedias = arrayTmp
       // -----
 
-      componentSortable.state.medias = state.mediasList
+      componentSortable.state.medias = state.idsMedias
       componentSortable.state.idGroupMedia = state.groupMedia.id
       componentSortable.method.render()
+    },
+    addGroupsMediaListMedias: async () => {
+      let data = {
+        id: state.groupMedia.id,
+        ids_medias: JSON.stringify({ ids_medias: state.idsMedias }),
+      };
+      data = JSON.stringify(data);
+
+      let formData = new FormData();
+      formData.append("controller", "MediaGroupsController");
+      formData.append("action", "updateMediasGroups");
+      formData.append("params", data);
+
+      const req = await fetch(PATH.urlApi, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+        },
+        body: formData,
+      });
+
+      if (req.ok === true) {
+        console.log('okkkkkkkkkkkkkkkkkkkk')
+        return req.json();
+      } else {
+        throw new Error("nouvelle erreur lors de la creation");
+      }
+    },
+    saveOrder: async () => {
+      state.idsMedias = componentSortable.method.eventSaveOrder()
+      let result = await method.addGroupsMediaListMedias()
+      const componentDialog = ComponentDialog({
+        title: 'Notification',
+        content: 'aa'
+      })
+      if (result.success) {
+        componentDialog.state.content = 'success'
+        console.log(componentDialog)
+        componentDialog.method.open()
+      } else {
+        componentDialog.state.content = 'error'
+        componentDialog.method.open()
+      }
     },
     renderTableGrid: () => {
 
