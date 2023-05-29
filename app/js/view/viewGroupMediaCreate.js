@@ -27,6 +27,7 @@ function viewGroupMediaCreate() {
             });
         
             let data = {
+                medias: {"medias": []},
                 reference: textValue['group-reference'],
                 information: JSON.stringify({})
             };
