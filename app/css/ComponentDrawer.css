@@ -15,11 +15,15 @@
     border-bottom-left-radius: 4px;
     box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
     background: #fff;
-    
+    overflow: hidden;
+
     z-index: 99;
 }
-.component-drawer.is_open {
-    width: 80%;
+.component-drawer.hideWhenIsClosed {
+    width: 0px;
+}
+.component-drawer.is_open, .component-drawer.hideWhenIsClosed.is_open {
+    width: calc(100% - 100px);
 }
 
 .component-drawer .drawer__overlay {

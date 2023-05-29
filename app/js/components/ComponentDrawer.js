@@ -9,36 +9,45 @@ function ComponentDrawer(options = {}) {
         //
         width: options.width != undefined ? options.width : 20,
         // height: options.height != undefined ? options.height : 20,
+        // class
+        hideWhenIsClosed: options.hideWhenIsClosed ? 'hideWhenIsClosed' : ''
     }
     const ui = {
         target: `${state.target}`,
         close: `.drawer__close`,
         open: `.drawer__open`,
+        content: `.drawer__content`,
         drawerUiid: `.drawer-${state.uiid}`
     }
     const method = {
+        refreshContent: () => {
+            // template.drawer = template.drawer
+            document.querySelector(ui.content).innerHTML = state.content
+        },
         open: () => {
-            document.querySelector(ui.open).addEventListener('click', () => {
-                console.log('open')
-                document.querySelector(ui.drawerUiid).classList.add('is_open')
-            })
+            document.querySelector(ui.drawerUiid).classList.add('is_open')
         },
         close: () => {
-            document.querySelector(ui.close).addEventListener('click', () => {
-                console.log('close')
-                document.querySelector(ui.drawerUiid).classList.remove('is_open')
+            document.querySelector(ui.drawerUiid).classList.remove('is_open')
+        },
+        eventOpen: () => {
+            document.querySelector(ui.open).addEventListener('click', () => {
+                method.open()
             })
-            
-
+        },
+        eventClose: () => {
+            document.querySelector(ui.close).addEventListener('click', () => {
+                method.close()
+            })
         },
         render: () => {
             document.querySelector(ui.target).insertAdjacentHTML('beforeend', template.drawer)
-            method.open()
-            method.close()
+            method.eventOpen()
+            method.eventClose() 
         }
     }
     const template = {
-        drawer: `<div class="component-drawer drawer-${state.uiid}">
+        drawer: `<div class="component-drawer drawer-${state.uiid} ${state.hideWhenIsClosed}">
                 <div class="drawer__overlay"></div>
                 <div class="drawer__action">
                     <span class="drawer__open">Ouvrir</span>

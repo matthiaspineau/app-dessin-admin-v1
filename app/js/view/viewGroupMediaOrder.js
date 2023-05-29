@@ -1,14 +1,11 @@
 import { fetchGetTableDraw } from "../fetch_data.js";
-import { getValuesFieldText } from "../utils/tools_form.js";
 import "../../../lib/sortable/sortable.min.js";
 import { PATH } from "../../configUrl.js";
-import { notificationAction } from "../utils/notificationAction.js"
 import { ComponentSelectGroupMedia } from "../components/componentSelectGroupMedia.js";
 import { ComponentSortable } from "../components/ComponentSortable.js";
 import { fetchMedias } from "../utils/fetchMedias.js";
 import { ComponentDrawer } from "../components/ComponentDrawer.js";
 import { ComponentDialog } from "../components/ComponentDialog.js";
-// import { ComponentTableGridMedias } from "../components/ComponentTableGridMedias.js";
 
 const ressource = {
   pathUpload: PATH.urlUploadImg,
@@ -123,7 +120,6 @@ function viewGroupMediaOrder() {
       });
 
       if (req.ok === true) {
-        console.log('okkkkkkkkkkkkkkkkkkkk')
         return req.json();
       } else {
         throw new Error("nouvelle erreur lors de la creation");
@@ -138,7 +134,6 @@ function viewGroupMediaOrder() {
       })
       if (result.success) {
         componentDialog.state.content = 'success'
-        console.log(componentDialog)
         componentDialog.method.open()
       } else {
         componentDialog.state.content = 'error'

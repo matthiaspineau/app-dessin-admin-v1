@@ -1,7 +1,7 @@
 async function fetchMedias(url, params) {
 
-    // let params = {"id":['98', '99']}
-    // let params = {"id":['98', '99']}
+    // let params = {"ids":['98', '99']}
+    // let params = {"ids":['98', '99']}
     let data = {
        "controller": "MediaController",
        "action": "getMedias",
