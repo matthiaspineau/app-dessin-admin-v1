@@ -1,4 +1,4 @@
-import { ComponentSelectGroupMedia } from "../components/componentSelectGroupMedia.js";
+import { ComponentSelectGroupMedia } from "../components/ComponentSelectGroupMedia.js";
 import { PATH } from "../../configUrl.js";
 
 export function initView() {

@@ -1,7 +1,7 @@
 import { fetchGetTableDraw } from "../fetch_data.js";
 import "../../../lib/sortable/sortable.min.js";
 import { PATH } from "../../configUrl.js";
-import { ComponentSelectGroupMedia } from "../components/componentSelectGroupMedia.js";
+import { ComponentSelectGroupMedia } from "../components/ComponentSelectGroupMedia.js";
 import { ComponentSortable } from "../components/ComponentSortable.js";
 import { fetchMedias } from "../utils/fetchMedias.js";
 import { ComponentDrawer } from "../components/ComponentDrawer.js";
