@@ -1,9 +1,5 @@
 import { PATH } from "../../configUrl.js";
-
-const ressource = {
-    pathUpload:  PATH.urlUploadImg,
-    sizeSmall:  'original'
-}
+import { ComponentDialog } from "../components/ComponentDialog.js";
 
 function initView() {
     document.getElementById('main').innerHTML = `<div id="viewMedia">
@@ -63,7 +59,14 @@ function viewMediaCreate() {
             ui.loader.style.display = 'block'
             method.uploadMedia().then((json) => {
                 console.log('then create')
+                console.log(json)
                 ui.loader.style.display = 'none'
+
+                const dialog =  ComponentDialog({
+                    title: 'creation média',
+                    content: json.desc,
+                })
+                dialog.method.open()
             })
         },
         uploadMedia: async () => {

@@ -60,6 +60,7 @@ function viewGroupMediaInformation() {
                 }
                 let data = {
                 id: ui.saveInformation.getAttribute('id_group'),
+                icone: ui.fieldIcone.value,
                 reference: ui.fieldReference.value,
                 is_active: Number(isActive),
                 information: JSON.stringify(information),
