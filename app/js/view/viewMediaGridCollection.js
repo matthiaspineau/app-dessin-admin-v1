@@ -1,4 +1,5 @@
 import { PATH } from "../../configUrl.js";
+import { ComponentDrawer } from "../components/ComponentDrawer.js";
 
 const ressource = {
     pathUpload:  PATH.urlUploadImg,
@@ -14,6 +15,17 @@ function initView() {
 
  
     view.method.render()
+    
+
+    // component - drawer
+    const componentDrawer = ComponentDrawer({
+        target: '#main',
+        content: `aa`,
+        hideWhenIsClosed: 'hideWhenIsClosed'
+    })
+    componentDrawer.method.render()
+
+    view.component.drawer = componentDrawer
 }
 
 function viewMediaGridCollection() {
@@ -24,8 +36,12 @@ function viewMediaGridCollection() {
         totalPage: 1,
         totalResult: 0,
         search: '',
-        medias: []
+        medias: [],
     };
+
+    const component = {
+        drawer: null
+    }
     
     const ui = {
         totalResult: '.total-result',
@@ -35,7 +51,11 @@ function viewMediaGridCollection() {
         page: '.page',
         view: '.grid-media-collection',
         grid: '.grid-collection',
-        search: '.search-reference'
+        search: '.search-reference',
+        cardMediaItem: '.cardMediaItem',
+        cardMediaInDrawer: '.cardMediaInDrawer',
+        selectFormatSize: '.selectFormatSize',
+        btnFormatSize: '.btnFormatSize'
     };
 
     const method = {
@@ -60,6 +80,7 @@ function viewMediaGridCollection() {
                 method.initNext()
                 method.initGoPage()
                 method.initSearch()
+                method.initOpenMedia()
             }
         },
         updateRender: async () => {
@@ -76,15 +97,51 @@ function viewMediaGridCollection() {
                 document.querySelector(ui.totalResult).textContent = state.totalResult
                 state.medias = medias.data
                 method.updateGrid()
-
+                method.initOpenMedia()
             }
         },
         updateGrid: () => {
             let html = ''
             state.medias.forEach( media => {
-                html += `<div style="max-width:200px"><img src="${PATH.urlUploadImg}medium/${media.name}" alt="img"></div>`
+                html += method.cardMedia(media)
             })
             document.querySelector(ui.grid).innerHTML = html
+        },
+        descriptionMediaInDrawer: (media) => {
+            return `<div>
+                        <div>id: ${media.id}</div>
+                        <div>name: ${media.name}</div>
+                        <div>original name: ${media.original_name}</div>
+                        <div>reference: ${media.reference}</div>
+                        <div>title: ${media.title}</div>
+                        <div class="d-flex gap-3 selectFormatSize">
+                            <span class="btnFormatSize cursor-p" data-format="thumbnail">thumbnail</span>
+                            <span class="btnFormatSize cursor-p" data-format="small">small</span>
+                            <span class="btnFormatSize cursor-p" data-format="medium">medium</span>
+                            <span class="btnFormatSize cursor-p" data-format="large">large</span>
+                            <span class="btnFormatSize cursor-p" data-format="original">original</span>
+                        </div>
+                    </div>
+                    <div class="cardMediaInDrawer" 
+                        data-id="${media.id}"
+                        data-name="${media.name}"
+                        data-original-name="${media.original_name}"
+                        data-reference="${media.reference}"
+                        data-title="${media.title}"
+                        >
+                        <img src="${PATH.urlUploadImg}medium/${media.name}" alt="img">
+                    </div>`
+        },
+        cardMedia: (media) => {
+            return `<div class="cardMediaItem" style="max-width:200px" 
+                        data-id="${media.id}"
+                        data-name="${media.name}"
+                        data-original-name="${media.original_name}"
+                        data-reference="${media.reference}"
+                        data-title="${media.title}"
+                        >
+                        <img src="${PATH.urlUploadImg}medium/${media.name}" alt="img">
+                    </div>`
         },
         fetchMedias: async (url, params) => {
 
@@ -108,6 +165,32 @@ function viewMediaGridCollection() {
                 return req.json()
             }
             throw new Error('nouvelle erreur lors de la creation')
+        },
+        initOpenMedia: () => {
+            document.querySelector(ui.grid).addEventListener('click', (e) => {
+                
+                if (e.target.closest(ui.cardMediaItem) != null) {
+                    let elt = e.target.closest(ui.cardMediaItem)
+                    let imgName = elt.dataset.name
+                    component.drawer.state.content = method.descriptionMediaInDrawer({
+                        id: elt.dataset.id,
+                        name: elt.dataset.name,
+                        original_name: elt.dataset.original_name,
+                        reference: elt.dataset.reference,
+                        title: elt.dataset.title
+                    })
+                    component.drawer.method.refreshContent()
+                    component.drawer.method.open()
+                    document.querySelector(ui.selectFormatSize).addEventListener('click', (e) => {
+                        if(e.target.closest(ui.selectFormatSize) != null) {
+                            let elt = e.target.closest(ui.btnFormatSize)
+                            let size = elt.dataset.format
+                            document.querySelector(ui.cardMediaInDrawer).innerHTML = `
+                                <img src="${PATH.urlUploadImg}${size}/${imgName}" alt="img" />`
+                        }
+                    })
+                } 
+            })
         },
         initSearch: () => {
             document.querySelector(ui.search).addEventListener('change', (e) => {
@@ -172,6 +255,7 @@ function viewMediaGridCollection() {
 
 
     const setup = {
+        component: component,
         state: state,
         ui: ui,
         method: method,

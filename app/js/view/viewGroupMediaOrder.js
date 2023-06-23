@@ -74,7 +74,6 @@ function viewGroupMediaOrder() {
 
       state.groupMedia = groupMedia
       document.querySelector(ui.titleGroup).innerHTML = state.groupMedia.reference
-      console.log(state.groupMedia)
       let result = await fetchMedias(PATH.urlApi, {ids: JSON.parse(state.groupMedia.ids_medias)['ids_medias']})
       
       document

@@ -75,9 +75,6 @@ function viewGroupMediaCollection() {
         .render(document.querySelector(ui.tableGroupCollection));
     },
     deleteGroupMedia: (item) => {
-      console.log(item)
-      console.log('delete group')
-
       let params = {
         id: item.id,
         name: item.name

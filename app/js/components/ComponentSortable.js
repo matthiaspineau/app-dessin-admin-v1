@@ -45,7 +45,6 @@ function ComponentSortable(options = {}) {
     addItem: (item) => {
       let arrayOrder = sortable.toArray();
       if (arrayOrder.includes(item.id)) {
-        // console.log('l item existe deja')
         return;
       }
       state.medias.push(item);

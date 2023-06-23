@@ -58,8 +58,6 @@ function viewMediaCreate() {
         createMedia: () => {
             ui.loader.style.display = 'block'
             method.uploadMedia().then((json) => {
-                console.log('then create')
-                console.log(json)
                 ui.loader.style.display = 'none'
 
                 const dialog =  ComponentDialog({
