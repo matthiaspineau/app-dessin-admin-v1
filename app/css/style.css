@@ -7,6 +7,10 @@ img {
     height: auto;
 }
 
+.cursor-p {
+    cursor: pointer;
+}
+
 /* dock grid template page */
 .dock-page {
     position: relative;

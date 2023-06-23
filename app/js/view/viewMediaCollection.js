@@ -110,7 +110,14 @@ function viewMediaCollection() {
                     },
                 ],
                 sort: true,
-                search: true,
+                // search: true,
+                search: {
+                    server: {
+                        url: (prev, keyword) => `${prev}search=${keyword}`
+                        // url: (prev, page, limit, keyword) => `${prev}?controller=${q.controller}&action=${q.action}&search=${keyword}&limit=${limit}&offset=${page * limit}`
+                    }
+
+                  },
                 server: {
                     url: PATH.urlApi,
                     then: data => data.data.map(item => [
